@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
@@ -33,6 +33,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  gem 'rspec-rails', '~> 3.3'
+  gem 'fabrication'
 end
 
 group :development do
@@ -41,5 +44,34 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'pry-rails'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
+# server
+gem 'thin'
+gem 'foreman'
+
+# Models
+gem 'mongoid', '~> 4.0'
+gem 'kaminari', '~> 0.16'
+
+# UX - HTML
+gem 'haml-rails'
+gem 'simple_form'
+
+# UX - JavaScript
+
+# UX - CSS
+gem 'bourbon', '~> 4.2'
+
+# Text manipulation
+gem 'redcarpet', '~> 3.3'
+gem 'rouge', '~> 1.9'
+gem 'nokogiri'
+gem 'ots'
+gem 'auto_html'
