@@ -60,6 +60,11 @@ gem 'foreman'
 gem 'mongoid', '~> 4.0'
 gem 'kaminari', '~> 0.16'
 
+# User Management
+gem 'devise', '~> 3.5'
+gem 'authority', '~> 3.1'
+gem 'ahoy_matey', '~> 1.2'
+
 # UX - HTML
 gem 'haml-rails'
 gem 'simple_form'
