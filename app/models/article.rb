@@ -1,5 +1,6 @@
 class Article
   include Mongoid::Document
+  include Mongoid::Timestamps
   include AutoHtmlFor
   field :title, type: String
   field :body, type: String
@@ -7,6 +8,8 @@ class Article
   field :tags, type: Array
   field :topics, type: Array
   field :slug, type: String
+
+  index( { created_at: 1, slug: 1 }, { unique: true } )
 
   # Note! This needs to come before the other save callbacks, as #create_summary
   # explicitly queries #body_html.
