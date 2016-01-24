@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :title
-    = f.input :body, as: :text
+    = f.input :body, as: :text, input_html: { class: %w{ markdown editor } }
 
   .form-actions
     = f.button :submit

@@ -70,13 +70,14 @@ gem 'haml-rails'
 gem 'simple_form'
 
 # UX - JavaScript
+gem 'bower-rails', '~> 0.10'
 
 # UX - CSS
 gem 'bourbon', '~> 4.2'
 
 # Text manipulation
 gem 'redcarpet', '~> 3.3'
-gem 'rouge', '~> 1.9'
+gem 'rouge', '~> 1.10'
 gem 'nokogiri'
 gem 'ots'
 gem 'auto_html', '~> 1.6.4'
