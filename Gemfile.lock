@@ -260,7 +260,7 @@ PLATFORMS
 DEPENDENCIES
   ahoy_matey (~> 1.2)
   authority (~> 3.1)
-  auto_html
+  auto_html (~> 1.6.4)
   bourbon (~> 4.2)
   byebug
   coffee-rails (~> 4.1.0)

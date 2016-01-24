@@ -8,6 +8,7 @@ class Article
   field :tags, type: Array
   field :topics, type: Array
   field :slug, type: String
+  field :media, type: Array, default: []
 
   index( { created_at: 1, slug: 1 }, { unique: true } )
 
@@ -15,18 +16,22 @@ class Article
   # explicitly queries #body_html.
   auto_html_for :body do
     image
+    reyoutube
     youtube( width: 640, height: 360, autoplay: false )
     rougecarpet
   end
 
   before_save :create_slug
   before_save :create_summary
+  before_save :create_media
 
   validates :title, presence: true
   validates :body, presence: true
 
   def current_synopsis
-    synopsis = OTS.parse Nokogiri::HTML( self.body_html ).text
+    html = remove_non_summarizable_content Nokogiri::HTML( self.body_html )
+    text = html.text.gsub( /\s+/, ' ' )
+    synopsis = OTS.parse text
     { summary: synopsis.summarize( sentences: 1 ), topics: synopsis.topics }
   end
 
@@ -44,5 +49,17 @@ class Article
       self.summary = synopsis[:summary].first[:sentence]
       self.topics = synopsis[:topics]
     end
+  end
+
+  def create_media
+    if body_changed? || !media?
+      html = Nokogiri::HTML( self.body_html )
+      self.media.concat html.xpath( '//@src[parent::iframe|parent::img]' ).map &:text
+      self.media.uniq!
+    end
+  end
+
+  def remove_non_summarizable_content( html )
+    html.search( 'pre' ).remove && html
   end
 end
