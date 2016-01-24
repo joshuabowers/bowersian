@@ -28,6 +28,8 @@ class Article
   validates :title, presence: true
   validates :body, presence: true
 
+  scope :published, -> { lte( created_at: Time.now ) }
+
   scope :published_on, -> (created_on) {
     between( created_at: created_on.at_beginning_of_day..created_on.at_end_of_day )
   }
