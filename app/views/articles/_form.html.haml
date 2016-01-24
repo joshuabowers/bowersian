@@ -3,10 +3,7 @@
 
   .form-inputs
     = f.input :title
-    = f.input :body
-    = f.input :summary
-    = f.input :tags
-    = f.input :topics
+    = f.input :body, as: :text
 
   .form-actions
     = f.button :submit

@@ -28,6 +28,10 @@ class Article
   validates :title, presence: true
   validates :body, presence: true
 
+  scope :published_on, -> (created_on) {
+    between( created_at: created_on.at_beginning_of_day..created_on.at_end_of_day )
+  }
+
   def current_synopsis
     html = remove_non_summarizable_content Nokogiri::HTML( self.body_html )
     text = html.text.gsub( /\s+/, ' ' )
@@ -46,7 +50,7 @@ class Article
   def create_summary
     if body_changed?
       synopsis = current_synopsis
-      self.summary = synopsis[:summary].first[:sentence]
+      self.summary = synopsis[:summary].first[:sentence].strip
       self.topics = synopsis[:topics]
     end
   end
@@ -54,7 +58,8 @@ class Article
   def create_media
     if body_changed? || !media?
       html = Nokogiri::HTML( self.body_html )
-      self.media.concat html.xpath( '//@src[parent::iframe|parent::img]' ).map &:text
+      # self.media.concat html.xpath( '//@src[parent::iframe|parent::img]' ).map &:text
+      self.media = html.xpath( '//img|//*[@class="video youtube"]' ).map &:to_s
       self.media.uniq!
     end
   end

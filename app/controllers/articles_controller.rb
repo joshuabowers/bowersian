@@ -4,7 +4,9 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    # Todo: this will eventually need to take some search parameters into
+    # account, given to it via BlogController.
+    @articles = Article.all.order( created_at: -1 )
   end
 
   # GET /articles/1

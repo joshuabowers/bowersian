@@ -1,28 +1,36 @@
 %h1 Listing articles
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th Body
-      %th Summary
-      %th Tags
-      %th Topics
-      %th
-      %th
-      %th
+- @articles.each do |article|
+  .article
+    %p
+      %b= link_to article.title, blog_slugged_article_path( article )
+    %p= article.summary
+    - unless article.media.blank?
+      = article.media.sample.html_safe
 
-  %tbody
-    - @articles.each do |article|
-      %tr
-        %td= article.title
-        %td= article.body
-        %td= article.summary
-        %td= article.tags
-        %td= article.topics
-        %td= link_to 'Show', article
-        %td= link_to 'Edit', edit_article_path(article)
-        %td= link_to 'Destroy', article, :method => :delete, :data => { :confirm => 'Are you sure?' }
+-# %table
+-#   %thead
+-#     %tr
+-#       %th Title
+-#       %th Body
+-#       %th Summary
+-#       %th Tags
+-#       %th Topics
+-#       %th
+-#       %th
+-#       %th
+-#
+-#   %tbody
+-#     - @articles.each do |article|
+-#       %tr
+-#         %td= article.title
+-#         %td= article.body
+-#         %td= article.summary
+-#         %td= article.tags
+-#         %td= article.topics
+-#         %td= link_to 'Show', article
+-#         %td= link_to 'Edit', edit_article_path(article)
+-#         %td= link_to 'Destroy', article, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
