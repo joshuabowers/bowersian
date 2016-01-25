@@ -41,8 +41,45 @@ $syntax-cursor-line: rgba($syntax-selection, 26%)
 %duo-3
   color: $duo-3 // .    Weak
 
-pre
+pre code
+  display: block
   font-family: $monospace
+  counter-reset: code
+  padding-left: 4em
+
+pre
+  position: relative
+  padding: 1em 0
+  box-shadow: inset 0 2em 1em -2em black, inset 0 -2em 1em -2em black
+
+.gl
+  width: 90%
+  white-space: pre-wrap
+  display: inline-block
+  width: 100%
+  & ::selection, &::selection
+    background-color: $syntax-selection
+  &:hover
+    background-color: $syntax-cursor-line
+  &::before
+    position: absolute
+    counter-increment: code
+    content: counter( code )
+    text-align: right
+    font-size: 0.9em
+    left: 0
+    width: 3em
+    white-space: pre-wrap
+    @extend %uno-4
+    +user-select( none )
+    & ::selection
+      background-color: $syntax-selection-gutter
+      @extend %uno-3
+    &:hover
+      @extend %uno-3
+
+.lineno
+  @extend %uno-4
 
 .hll
   background-color: $syntax-bg
