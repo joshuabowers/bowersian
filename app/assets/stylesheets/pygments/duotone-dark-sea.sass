@@ -1,0 +1,104 @@
+// Inspired by the themes developed for Atom at:
+// http://simurai.com/projects/2016/01/01/duotone-themes/
+
+// Hues
+$syntax-uno: 212
+$syntax-duo: 160
+
+// Uno hue
+$uno-1: hsl($syntax-uno, 99%, 92%)
+$uno-2: hsl($syntax-uno, 88%, 77%)
+$uno-3: hsl($syntax-uno, 24%, 54%)
+$uno-4: hsl($syntax-uno, 12%, 38%)
+
+// Duo hue
+$duo-1: hsl($syntax-duo, 99%, 70%)
+$duo-2: hsl($syntax-duo, 72%, 48%)
+$duo-3: hsl($syntax-duo, 12%, 32%)
+
+// Base colors
+$syntax-fg: $uno-2
+$syntax-bg: hsl($syntax-uno, 24%, 15%)
+$syntax-accent: hsl($syntax-duo, 100%, 66%)
+$syntax-guide: lighten($syntax-bg, 10%)
+$syntax-selection: lighten($syntax-bg, 12%)
+$syntax-selection-gutter: lighten($syntax-bg, 3%)
+$syntax-cursor-line: rgba($syntax-selection, 26%)
+
+%uno-1
+  color: $uno-1 // .... Strong
+%uno-2
+  color: $uno-2 // ...   |
+%uno-3
+  color: $uno-3 // ..    v
+%uno-4
+  color: $uno-4 // .    Weak
+
+%duo-1
+  color: $duo-1 // .... Strong
+%duo-2
+  color: $duo-2 // ...   |
+%duo-3
+  color: $duo-3 // .    Weak
+
+pre
+  font-family: $monospace
+
+.hll
+  background-color: $syntax-bg
+  color: $syntax-fg
+
+%meta
+  @extend %uno-4
+
+%html-elements, %entity, %tag, %function-call
+  @extend %uno-1
+
+%variable, %attribute-name, %character-escape
+  @extend %uno-2
+
+%support
+  @extend %uno-3
+
+%string, %constant, %storage-type
+  @extend %duo-1
+
+%keyword, %storage
+  @extend %duo-2
+
+%punctuation
+  @extend %uno-4
+
+%string %punctuation
+  @extend %duo-3
+
+%comment
+  @extend %uno-4
+  font-style: italic
+
+.nf
+  @extend %function-call
+
+.n, .na, .nb, .nc, .nd, .ni, .ne, .nl, .nn, .nx, .py, .nt, .nv, .vc, .vg, .vi, .bp
+  @extend %variable
+
+.c, .cm, .cp, .c1, .cs
+  @extend %comment
+
+.k, .kc, .kd, .kn, .kp, .kr, .kt
+  @extend %keyword
+
+.no, .l, .ld, .m, .mb, .mf, .mh, .mi, .mo, .il
+  @extend %constant
+
+.s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sx, .sr, .ss
+  @extend %string
+
+.p
+  @extend %punctuation
+
+.o, .ow
+  @extend %storage
+
+.err, .gd, .ge, .gi, .gs, .gu, .w
+  @extend %meta

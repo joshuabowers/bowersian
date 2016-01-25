@@ -4,3 +4,4 @@
 # asset 'bootstrap'
 
 asset 'meltdown'
+asset 'pygments'

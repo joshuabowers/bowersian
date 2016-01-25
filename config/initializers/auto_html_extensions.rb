@@ -8,14 +8,20 @@ class RougeCarpetRenderer < Redcarpet::Render::HTML
   protected
 
   def rouge_formatter( options = {} )
-    new_options = { line_numbers: true }
+    new_options = { line_numbers: true, css_class: 'hll' }
     method = options.respond_to?(:options) ? :options : :merge
     ::Rouge::Formatters::HTML.new( options.send( method, new_options ) )
   end
 end
 
 AutoHtml.add_filter(:rougecarpet).with({}) do |text, options|
-  options.merge!( autolink: true, tables: true, fenced_code_blocks: true )
+  options.merge!(
+    no_intra_emphasis: true,
+    autolink: true,
+    tables: true,
+    fenced_code_blocks: true,
+    disable_indented_code_blocks: true
+  )
   Redcarpet::Markdown.new(RougeCarpetRenderer, options).render(text)
 end
 
