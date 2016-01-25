@@ -30,6 +30,7 @@ module Bowersian
     # config.i18n.default_locale = :de
 
     config.generators do |g|
+      g.orm :mongoid
       g.fixture = true
       g.fixture_replacement :fabrication
     end

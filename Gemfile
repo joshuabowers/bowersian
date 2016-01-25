@@ -57,7 +57,7 @@ gem 'thin'
 gem 'foreman'
 
 # Models
-gem 'mongoid', '~> 4.0'
+gem 'mongoid', '~> 5.0'
 gem 'kaminari', '~> 0.16'
 
 # User Management
