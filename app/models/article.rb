@@ -4,6 +4,7 @@ class Article
   include AutoHtmlFor
   field :title, type: String
   field :body, type: String
+  field :body_html, type: String
   field :summary, type: String
   field :tags, type: Array
   field :topics, type: Array
