@@ -1,7 +1,9 @@
-%h1 Editing article
-
-= render 'form'
-
-= link_to 'Show', @article
-\|
-= link_to 'Back', articles_path
+%article.article
+  %header
+    %h2 Editing article
+    %nav
+      %span.material-icons.md-dark.md-2em.md-good
+        save
+      = link_to 'cancel', @article, class: %w{ material-icons md-dark md-2em md-neutral }
+      = link_to 'delete', @article, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: %w{ material-icons md-dark md-2em md-bad }
+  = render 'form'

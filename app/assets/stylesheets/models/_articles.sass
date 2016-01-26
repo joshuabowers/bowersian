@@ -1,13 +1,17 @@
 .articles.index
 
+.articles
+  &.show, &.edit, &.new
+    @extend %flexed--column
+    main
+      @extend %flexible
+      @extend %flexed
+    .article
+      @extend %flexible
+      padding: 1em
+
 .articles.show
-  @extend %flexed--column
-  main
-    @extend %flexible
-    @extend %flexed
   .article
-    @extend %flexible
-    padding: 1em
     +columns( 35em )
     +column-rule( 1px dotted #ddd )
     +column-gap( 3em )

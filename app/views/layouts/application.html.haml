@@ -10,7 +10,7 @@
     = csrf_meta_tags
   %body{ class: [ controller_name, action_name ] }
     %header
-      %h1 Bowersian
+      %h1= link_to 'Bowersian', root_path
       %nav
         = link_to 'add', new_article_path, class: 'material-icons md-light md-3em'
     %main

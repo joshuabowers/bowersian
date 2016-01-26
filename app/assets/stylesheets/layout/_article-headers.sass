@@ -1,0 +1,23 @@
+article > header
+  margin-bottom: 0.5em
+  @extend %flexed-align--centered
+  @extend %flexed-justify--between
+
+  h2, h3, nav
+    @extend %flexible--not
+
+  nav
+    margin-top: 0.5em
+    span.material-icons
+      cursor: pointer
+
+  a, .material-icons.md-dark
+    text-decoration: none
+    &:hover
+      +icon-highlight( $site-blue )
+    &.md-good:hover
+      +icon-highlight( $site-green )
+    &.md-neutral:hover
+      +icon-highlight( $site-yellow )
+    &.md-bad:hover
+      +icon-highlight( $site-red )

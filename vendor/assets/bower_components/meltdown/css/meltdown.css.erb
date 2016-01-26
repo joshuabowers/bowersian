@@ -43,11 +43,11 @@ user-select: none;
 
 @font-face {
 	font-family: 'meltdown';
-	src:url('../fonts/meltdown.eot');
-	src:url('../fonts/meltdown.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/meltdown.woff') format('woff'),
-		url('../fonts/meltdown.ttf') format('truetype'),
-		url('../fonts/meltdown.svg#meltdown') format('svg');
+	src:url(<%= asset_path 'meltdown/fonts/meltdown.eot' %>);
+	src:url(<%= asset_path 'meltdown/fonts/meltdown.eot?#iefix' %>) format('embedded-opentype'),
+		url(<%= asset_path 'meltdown/fonts/meltdown.woff' %>) format('woff'),
+		url(<%= asset_path 'meltdown/fonts/meltdown.ttf' %>) format('truetype'),
+		url(<%= asset_path 'meltdown/fonts/meltdown.svg#meltdown' %>) format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
