@@ -8,13 +8,24 @@
   .article
     @extend %flexible
     padding: 1em
-    +columns( 40em )
+    +columns( 35em )
     +column-rule( 1px dotted #ddd )
     +column-gap( 3em )
     +column-fill( auto )
+
+    @media #{$media-query-tablet} and (orientation:landscape)
+      +columns( 20em )
 
     header
       +column-span( all )
 
     img, .video iframe
       width: 100%
+
+    img
+      border-radius: 1em
+
+.articles.edit, .articles.new
+  textarea
+    width: 80rem
+    height: 40rem

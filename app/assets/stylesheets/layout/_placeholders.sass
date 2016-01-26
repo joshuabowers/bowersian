@@ -53,5 +53,16 @@
   +align-items( center )
   @extend %flexed
 
+%flexed-justify--start
+  +justify-content( flex-start )
+  @extend %flexed
+
+%flexed-justify--end
+  +justify-content( flex-end )
+  @extend %flexed
+
 %flexible
-  +flex( 1 auto 0 )
+  +flex( 1 )
+
+%flexible--not
+  +flex( 0 1 auto )

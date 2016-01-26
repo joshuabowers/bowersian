@@ -3,9 +3,10 @@ body > header
   margin-bottom: 0.5em
   @extend %flexed--row-reverse
   @extend %flexed-align--centered
+  @extend %flexed-justify--start
 
   h1, nav
-    @extend %flexible
+    @extend %flexible--not
 
   %three-d-shadow
     text-shadow: 0 0.09em 0 darken(white, 15%), 0 0.1em 0.5em black
