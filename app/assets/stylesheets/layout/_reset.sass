@@ -1,29 +1,33 @@
-%font-size--normal
-  font-size: $em-base
-
-%font-size--smaller
-  font-size: calc( $em-base * 0.9 )
-
-%font-size--larger
-  font-size: calc( $em-base * 1.1 )
-
-%line-height
-  line-height: 1.2rem
-
 html, body
-  padding: 0
-  margin: 0
-  font-family: $lucida-grande
+  @extend %marginless
+  @extend %paddingless
+  @extend %font-family
   +font-feature-settings( 'liga', 'pnum' )
   @extend %font-size--normal
   @extend %line-height
   background: #777
   color: white
 
+article, header, footer, main
+  @extend %marginless
+  @extend %paddingless
+
 @for $size from 0 through 2
   h#{$size + 1}
     font-size: 3em - 0.5 * $size
+    @extend %marginless
+    @extend %paddingless
 
-p
+p, ol, ul, td
+  @extend %font-family
   @extend %font-size--normal
   @extend %line-height
+
+a
+  color: #000
+
+  &:visited
+    color: #666
+
+  &:hover
+    color: #077

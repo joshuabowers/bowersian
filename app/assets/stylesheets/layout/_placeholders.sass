@@ -12,3 +12,42 @@
 %overflow-scrolling--y
   overflow-y: auto
   @extend %touch-scrolling
+
+%font-size--normal
+  font-size: $em-base
+
+%font-size--smaller
+  font-size: calc( $em-base * 0.9 )
+
+%font-size--larger
+  font-size: calc( $em-base * 1.1 )
+
+%font-family
+  font-family: $lucida-grande
+
+%line-height
+  line-height: 1.2
+
+%marginless
+  margin: 0
+
+%paddingless
+  padding: 0
+
+%flexed
+  +display( flex )
+
+%flexed--row
+  +flex-direction( row )
+  @extend %flexed
+
+%flexed--row-reverse
+  +flex-direction( row-reverse )
+  @extend %flexed
+
+%flexed-align--centered
+  +align-items( center )
+  @extend %flexed
+
+%flexible
+  +flex( 1 auto 0 )

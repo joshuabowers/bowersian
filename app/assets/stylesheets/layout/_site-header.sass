@@ -1,1 +1,21 @@
 body > header
+  margin-top: 4em
+  margin-bottom: 0.5em
+  @extend %flexed--row-reverse
+  @extend %flexed-align--centered
+
+  h1, nav
+    @extend %flexible
+
+  %three-d-shadow
+    text-shadow: 0 0.09em 0 darken(white, 15%), 0 0.1em 0.5em black
+
+  h1
+    @extend %three-d-shadow
+
+  a, .material-icons.md-light
+    @extend %three-d-shadow
+    text-decoration: none
+    &:hover
+      color: $site-blue
+      text-shadow: 0 0.09em 0 darken($site-blue, 15%), 0 0.1em 0.5em black

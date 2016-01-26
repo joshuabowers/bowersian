@@ -10,7 +10,3 @@
       %time{ datetime: article.created_at.to_s(:iso8601) }
         = time_ago_in_words article.created_at
       ago.
-
-%br
-
-= link_to 'New Article', new_article_path
