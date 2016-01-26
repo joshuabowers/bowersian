@@ -61,7 +61,6 @@ class Article
   def create_media
     if body_changed? || !media?
       html = Nokogiri::HTML( self.body_html )
-      # self.media.concat html.xpath( '//@src[parent::iframe|parent::img]' ).map &:text
       self.media = html.xpath( '//img|//*[@class="video youtube"]' ).map &:to_s
       self.media.uniq!
     end
