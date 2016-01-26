@@ -1,12 +1,15 @@
-%h1 Listing articles
-
 - @articles.each do |article|
-  .article
-    %p
-      %b= link_to article.title, blog_slugged_article_path( article )
+  %article.article
+    %header
+      %h3= link_to article.title, blog_slugged_article_path( article )
     %p= article.summary
     - unless article.media.blank?
       = article.media.sample.html_safe
+    %footer
+      Created
+      %time{ datetime: article.created_at.to_s(:iso8601) }
+        = time_ago_in_words article.created_at
+      ago.
 
 %br
 

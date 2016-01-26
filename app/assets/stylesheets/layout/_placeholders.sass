@@ -1,0 +1,14 @@
+%touch-scrolling
+  -webkit-overflow-scrolling: touch
+
+%overflow-scrolling
+  overflow: auto
+  @extend %touch-scrolling
+
+%overflow-scrolling--x
+  overflow-x: auto
+  @extend %touch-scrolling
+
+%overflow-scrolling--y
+  overflow-y: auto
+  @extend %touch-scrolling

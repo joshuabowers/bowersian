@@ -23,7 +23,9 @@ $syntax-accent: hsl($syntax-duo, 100%, 66%)
 $syntax-guide: lighten($syntax-bg, 10%)
 $syntax-selection: lighten($syntax-bg, 12%)
 $syntax-selection-gutter: lighten($syntax-bg, 3%)
-$syntax-cursor-line: rgba($syntax-selection, 26%)
+$syntax-cursor-line: rgba($syntax-selection, 0.26)
+$syntax-selection-color: rgba($syntax-selection, 0.50)
+$syntax-selection-gutter-color: rgba($syntax-selection, 0.30)
 
 %uno-1
   color: $uno-1 // .... Strong
@@ -43,7 +45,6 @@ $syntax-cursor-line: rgba($syntax-selection, 26%)
 
 pre code
   display: block
-  font-family: 'Menlo', $monospace
   counter-reset: code
   padding-left: 4em
 
@@ -51,14 +52,24 @@ pre
   position: relative
   padding: 1em 0
   box-shadow: inset 0 2em 1em -2em black, inset 0 -2em 1em -2em black
+  @extend %overflow-scrolling
+
+code
+  font-family: 'Menlo', $monospace
+
+.hll
+  background-color: $syntax-bg
+  color: $syntax-fg
 
 .gl
-  width: 90%
-  white-space: pre-wrap
   display: inline-block
   width: 100%
-  & ::selection, &::selection
-    background-color: $syntax-selection
+
+  +selection(true)
+    background-color: $syntax-selection-color
+  +selection
+    background-color: $syntax-selection-color
+
   &:hover
     background-color: $syntax-cursor-line
   &::before
@@ -72,18 +83,20 @@ pre
     white-space: pre-wrap
     @extend %uno-4
     +user-select( none )
-    & ::selection
-      background-color: $syntax-selection-gutter
-      @extend %uno-3
+
+    +selection(true)
+      background-color: $syntax-selection-gutter-color
+      color: $uno-3
+    +selection
+      background-color: $syntax-selection-gutter-color
+      color: $uno-3
+    
     &:hover
       @extend %uno-3
 
 .lineno
   @extend %uno-4
 
-.hll
-  background-color: $syntax-bg
-  color: $syntax-fg
 
 %meta
   @extend %uno-4

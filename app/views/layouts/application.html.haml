@@ -8,4 +8,7 @@
     = auto_discovery_link_tag :atom, { controller: :articles, action: :index }
     = csrf_meta_tags
   %body
-    = yield
+    %header
+      %h1 Bowersian
+    %main
+      = yield
