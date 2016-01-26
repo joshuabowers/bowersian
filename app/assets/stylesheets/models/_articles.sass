@@ -1,3 +1,20 @@
-// Place all the styles related to the articles controller here.
-// They will automatically be included in application.css.
-// You can use Sass here: http://sass-lang.com/
+.articles.index
+
+.articles.show
+  @extend %flexed--column
+  main
+    @extend %flexible
+    @extend %flexed
+  .article
+    @extend %flexible
+    padding: 1em
+    +columns( 40em )
+    +column-rule( 1px dotted #ddd )
+    +column-gap( 3em )
+    +column-fill( auto )
+
+    header
+      +column-span( all )
+
+    img, .video iframe
+      width: 100%

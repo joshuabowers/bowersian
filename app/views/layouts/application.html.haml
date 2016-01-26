@@ -8,7 +8,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = auto_discovery_link_tag :atom, { controller: :articles, action: :index }
     = csrf_meta_tags
-  %body
+  %body{ class: [ controller_name, action_name ] }
     %header
       %h1 Bowersian
       %nav
