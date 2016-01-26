@@ -4,3 +4,5 @@
 
 $(document).on 'page:change', (args) ->
   $('.markdown.editor').meltdown()
+  $('#save-article').on 'click', ->
+    $('.article form').submit()

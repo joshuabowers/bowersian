@@ -30,6 +30,20 @@
       border-radius: 1em
 
 .articles.edit, .articles.new
-  textarea
-    width: 80rem
-    height: 40rem
+  article
+    @extend %flexed--column
+  form, .form-inputs
+    @extend %flexible
+    @extend %flexed--column
+  .input
+    &.text
+      @extend %flexible
+    @extend %flexed--row
+    &:not(:last-child)
+      margin-bottom: 0.5em
+  textarea, input
+    @extend %flexible
+  .meltdown_wrap, .meltdown_editor-wrap, .meltdown_editor-deco
+    @extend %flexible
+    @extend %flexed--column
+  .meltdown_editor-wrap, .meltdown_preview-wrap
