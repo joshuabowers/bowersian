@@ -7,10 +7,9 @@ module Bowersian
 
     protected
 
-    def rouge_formatter( options = {} )
-      new_options = { line_numbers: false, css_class: 'hll' }
-      method = options.respond_to?(:options) ? :options : :merge
-      CounterFormatter.new( options.send( method, new_options ) )
+    def rouge_formatter( lexer )
+      options = { line_numbers: false, css_class: "hll #{lexer.tag}", language: lexer.tag }
+      CounterFormatter.new( options )
     end
   end
 end

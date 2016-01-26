@@ -1,8 +1,14 @@
 module Bowersian
   class CounterFormatter < ::Rouge::Formatters::HTML
+    def initialize( options = {} )
+      @language = options[:language]
+      super
+    end
+
     private
     def stream_untableized(tokens, &b)
       yield "<pre#@css_class><code>" if @wrap
+      yield "<div class='language-wrapper'><div class='language'>#{@language}</div></div>" if @language
 
       formatted, last = '', { eol: false, line: 0 }
       line_token = ::Rouge::Token::Tokens::Generic::Lineno
