@@ -1,18 +1,24 @@
 body > header
-  margin-top: 4em
-  margin-bottom: 0.5em
+  padding-top: 6em
+  padding-bottom: 0.5em
   @extend %flexed--row-reverse
   @extend %flexed-align--centered
   @extend %flexed-justify--start
+  background-image: image-url( 'IMG_2026.jpg' )
+  background-position: center center
+  background-attachment: fixed
+  background-size: cover
+  background-repeat: no-repeat
 
   h1, nav
     @extend %flexible--not
 
   %three-d-shadow
-    text-shadow: 0 0.09em 0 darken(white, 15%), 0 0.1em 0.5em black
+    +three-d-shadow
 
   h1
     @extend %three-d-shadow
+    color: white
     a
       &:visited
         color: white
@@ -24,7 +30,8 @@ body > header
 
   a, .material-icons.md-light
     @extend %three-d-shadow
+    @extend %animatable
     text-decoration: none
     &:hover
       color: $site-blue
-      text-shadow: 0 0.09em 0 darken($site-blue, 15%), 0 0.1em 0.5em black
+      +three-d-shadow( $site-blue )
