@@ -3,42 +3,46 @@
     @extend %flexed--row
     @extend %flexed--wrap
     @extend %flexible
+
+    +justify-content( center )
+    +align-items( baseline )
+
     padding: 1em
-    background-color: transparent
+
+  article > header
+    +justify-content( center )
 
   .article
-    position: relative
-    @extend %flexible--not
-    width: 30em
-    height: 30em
+    // max-width: 30em
+    +flex( 1 1 20em )
     overflow: hidden
     margin-bottom: 1em
     margin-right: 1em
     background-color: transparent
+    @extend %flexed--column
 
-    section
-      position: relative
-      max-width: 100%
-      z-index: 1
-      background-color: rgba( white, 0.8 )
-      padding: 0.25em 0.5em
-      +backdrop-filter( blur( 5px ) )
+    &:first-child
+      // max-width: none
+      +flex( 1 1 60em )
+    &.double
+      +flex( 1 1 40em )
+    &.triple
+      +flex( 1 1 60em )
+    &.quad
+      +flex( 1 1 80em )
 
-      header
-        text-align: center
+    header, h3
+      text-align: center
 
-      footer
-        text-align: right
-        font-style: italic
+    footer
+      text-align: right
+      font-style: italic
+      color: gray
 
     img, .video
-      position: absolute
-      z-index: 0
-      top: 0
-      margin-left: auto
-      margin-right: auto
-      max-width: 100%
-      max-height: 100%
+      max-width: 480px
+      max-height: 320px
+      +align-self( center )
 
 .articles
   &.show, &.edit, &.new

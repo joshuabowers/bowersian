@@ -1,14 +1,13 @@
 %article#articles
   - @articles.each do |article|
     %article.article
+      %header
+        %h3= link_to article.title, blog_slugged_article_path( article )
       - unless article.media.blank?
         = article.media.sample.html_safe
-      %section
-        %header
-          %h3= link_to article.title, blog_slugged_article_path( article )
-        %p= article.summary
-        %footer
-          Created
-          %time{ datetime: article.created_at.to_s(:iso8601) }
-            = time_ago_in_words article.created_at
-          ago.
+      %p= article.summary
+      %footer
+        Created
+        %time{ datetime: article.created_at.to_s(:iso8601) }
+          = time_ago_in_words article.created_at
+        ago.
