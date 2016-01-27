@@ -17,8 +17,11 @@ class Article
   # explicitly queries #body_html.
   auto_html_for :body do
     image
-    reyoutube
+    flickr_modern
+    twitter
+    youtube_extensions
     youtube( width: 640, height: 360, autoplay: false )
+    link
     rougecarpet
   end
 

@@ -76,6 +76,7 @@ gem 'bower-rails', '~> 0.10'
 gem 'bourbon', '~> 4.2'
 
 # Text manipulation
+gem 'base58'
 gem 'redcarpet', '~> 3.3'
 gem 'rouge', '~> 1.10'
 gem 'nokogiri'

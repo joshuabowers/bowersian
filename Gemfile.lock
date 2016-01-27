@@ -54,6 +54,7 @@ GEM
     auto_html (1.6.4)
       redcarpet (~> 3.1)
       rinku (~> 1.5.0)
+    base58 (0.1.0)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -258,6 +259,7 @@ DEPENDENCIES
   ahoy_matey (~> 1.2)
   authority (~> 3.1)
   auto_html (~> 1.6.4)
+  base58
   bourbon (~> 4.2)
   bower-rails (~> 0.10)
   byebug
