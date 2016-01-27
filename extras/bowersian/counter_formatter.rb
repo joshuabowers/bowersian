@@ -6,9 +6,21 @@ module Bowersian
     end
 
     private
+    def content_tag( tag_name, content, attributes = {} )
+      attribute_pairs = ' ' + attributes.map {|k, v| "#{ k }='#{ v }'"}.join( ' ' )
+      attribute_pairs.strip! if attribute_pairs.blank?
+      "<#{ tag_name }#{ attribute_pairs }>#{ content }</#{ tag_name }>"
+    end
+
     def stream_untableized(tokens, &b)
-      yield "<pre#@css_class><code>" if @wrap
-      yield "<div class='language-wrapper'><div class='language'>#{@language}</div></div>" if @language
+      if @wrap
+        if @language
+          lang = content_tag( :div, content_tag( :div, @language, class: 'language' ), class: 'language-wrapper')
+        end
+        yield "<pre#@css_class>#{ lang }<code>"
+      end
+
+      # yield "<div class='language-wrapper'><div class='language'>#{@language}</div></div>" if @language
 
       formatted, last = '', { eol: false, line: 0 }
       line_token = ::Rouge::Token::Tokens::Generic::Lineno
