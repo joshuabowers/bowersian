@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'page:change', (args) ->
+  $('time.timeago').timeago()
+
   $('.markdown.editor').meltdown()
+
   $('#save-article').on 'click', ->
     $('.article form').submit()

@@ -8,6 +8,5 @@
       %p= article.summary
       %footer
         Created
-        %time{ datetime: article.created_at.to_s(:iso8601) }
+        %time.timeago{ datetime: article.created_at.to_s(:iso8601) }
           = time_ago_in_words article.created_at
-        ago.

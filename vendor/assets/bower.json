@@ -2,6 +2,7 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "meltdown": "latest",
-    "pygments": "latest"
+    "pygments": "latest",
+    "jquery-timeago": "latest"
   }
 }
