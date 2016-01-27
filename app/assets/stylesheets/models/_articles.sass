@@ -1,4 +1,56 @@
 .articles.index
+  #articles
+    @extend %flexed--row
+    @extend %flexed--wrap
+    @extend %flexible
+    padding: 1em
+    background-color: transparent
+
+  .article
+    position: relative
+    @extend %flexible--not
+    width: 30em
+    height: 30em
+    overflow: hidden
+    margin-bottom: 1em
+    margin-right: 1em
+    background-color: transparent
+
+    section
+      position: relative
+      max-width: 100%
+      z-index: 2
+      background-color: rgba( white, 0.8 )
+      padding: 0.25em 0.5em
+
+      header
+        text-align: center
+
+      footer
+        text-align: right
+        font-style: italic
+
+      &::before
+        position: absolute
+        display: block
+        left: 0px
+        right: 0px
+        top: 0px
+        bottom: 0px
+        content: ' '
+        z-index: 1
+        +filter( blur( 10px ) )
+
+    img, .video
+      position: absolute
+      z-index: 0
+      top: 0
+      margin-left: auto
+      margin-right: auto
+
+    img
+      max-width: 100%
+      max-height: 100%
 
 .articles
   &.show, &.edit, &.new
