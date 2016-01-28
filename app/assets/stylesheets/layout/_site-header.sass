@@ -13,11 +13,7 @@ body > header
   h1, nav
     @extend %flexible--not
 
-  %three-d-shadow
-    +three-d-shadow
-
   h1
-    @extend %three-d-shadow
     color: white
     a
       &:visited
@@ -29,9 +25,7 @@ body > header
     margin-top: 0.5em
 
   a, .material-icons.md-light
-    @extend %three-d-shadow
     @extend %animatable
     text-decoration: none
     &:hover
-      color: $site-blue
-      +three-d-shadow( $site-blue )
+      +icon-highlight( $site-blue )
