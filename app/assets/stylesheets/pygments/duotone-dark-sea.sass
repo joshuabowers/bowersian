@@ -57,9 +57,10 @@ pre
 
 code, .language-wrapper
   font-family: 'Menlo', $monospace
+  z-index: 0
 
 .language-wrapper
-  z-index: 10
+  z-index: 1
   position: absolute
   right: -4.25em
   top: 0.5em
@@ -96,6 +97,7 @@ code, .language-wrapper
   &:hover
     background-color: $syntax-cursor-line
   &::before
+    z-index: 1
     position: absolute
     counter-increment: code
     content: counter( code )
