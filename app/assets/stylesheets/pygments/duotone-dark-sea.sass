@@ -47,13 +47,13 @@ pre code
   display: block
   counter-reset: code
   padding-left: 4em
+  min-height: 3.5em
   @extend %overflow-scrolling
 
 pre
   position: relative
   padding: 1em 0
   box-shadow: inset 0 2em 1em -2em $uno-3, inset 0 -2em 1em -2em $uno-3
-  overflow: hidden
 
 code, .language-wrapper
   font-family: 'Menlo', $monospace
@@ -62,18 +62,25 @@ code, .language-wrapper
 .language-wrapper
   z-index: 1
   position: absolute
-  right: -4.25em
-  top: 0.5em
+  right: -1.75em
+  top: 0.85em
   transform: rotate(45deg)
+  width: 7em
+  overflow: hidden
+  border-top-left-radius: 3em
+  border-top-right-radius: 3em
+  border-bottom-left-radius: 0.5em
+  border-bottom-right-radius: 0.5em
   .language
     color: $uno-1
     font-weight: bold
     padding: 0.25em 0.5em
-    width: 10em
     text-align: center
     background-color: transparentize($duo-2, 0.25)
     border: 0.1em solid $duo-1
     box-shadow: 0 0 0.5em $duo-1
+    &:hover
+      +animation( ribbon-slide 3s ease-in-out inifinite )
 
 %code-background-color
   background-color: $syntax-bg
@@ -91,11 +98,11 @@ code, .language-wrapper
   +selection
     background-color: $syntax-selection-color
 
-  > :last-child
-    margin-right: 3em
-
   &:hover
     background-color: $syntax-cursor-line
+  &::after
+    content: ' '
+    margin-right: 4em
   &::before
     z-index: 1
     position: absolute
