@@ -9,7 +9,7 @@
     = auto_discovery_link_tag :atom, { controller: :articles, action: :index }
     = csrf_meta_tags
   %body{ class: [ controller_name, action_name ] }
-    %header
+    %header#site-header
       %h1= link_to 'Bowersian', root_path
       %nav
         = link_to 'add', new_article_path, class: 'material-icons md-light md-3em'

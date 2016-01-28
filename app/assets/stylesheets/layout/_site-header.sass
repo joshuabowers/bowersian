@@ -9,6 +9,16 @@ body > header
   background-attachment: fixed
   background-size: cover
   background-repeat: no-repeat
+  +transition( box-shadow 0.5s ease )
+
+  &.stuck
+    width: 100%
+    padding-top: 0.5em
+    position: fixed
+    box-shadow: 0 0 1em gray
+
+    ~ main
+      padding-top: 10em
 
   h1, nav
     @extend %flexible--not
