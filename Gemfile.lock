@@ -48,9 +48,6 @@ GEM
       user_agent_parser
       uuidtools
     arel (6.0.3)
-    authority (3.1.0)
-      activesupport (>= 3.0.0)
-      rake (>= 0.8.7)
     auto_html (1.6.4)
       redcarpet (~> 3.1)
       rinku (~> 1.5.0)
@@ -147,6 +144,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -260,7 +259,6 @@ PLATFORMS
 
 DEPENDENCIES
   ahoy_matey (~> 1.2)
-  authority (~> 3.1)
   auto_html (~> 1.6.4)
   base58
   bourbon (~> 4.2)
@@ -278,6 +276,7 @@ DEPENDENCIES
   nokogiri
   ots
   pry-rails
+  pundit (~> 1.1)
   rails (= 4.2.4)
   rails_12factor
   redcarpet (~> 3.3)
