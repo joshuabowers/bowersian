@@ -63,6 +63,7 @@ gem 'kaminari', '~> 0.16'
 # User Management
 gem 'devise', '~> 3.5'
 gem 'pundit', '~> 1.1'
+gem 'rolify', '~> 5.0'
 gem 'ahoy_matey', '~> 1.2'
 
 # UX - HTML
