@@ -9,4 +9,4 @@
       %footer
         Created
         %time.timeago{ datetime: article.created_at.to_s(:iso8601) }
-          = time_ago_in_words article.created_at
+          = article.created_at.to_s( :long )

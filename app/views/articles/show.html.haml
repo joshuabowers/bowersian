@@ -2,8 +2,8 @@
   %header
     %h2= @article.title
     %nav
-      = link_to 'edit', edit_article_path(@article), class: %w{ material-icons md-dark md-2em }
       = link_to 'arrow_back', articles_path, class: %w{ material-icons md-dark md-2em }
+      = link_to 'edit', edit_article_path(@article), class: %w{ material-icons md-dark md-2em }
 
   = @article.body_html.html_safe
 

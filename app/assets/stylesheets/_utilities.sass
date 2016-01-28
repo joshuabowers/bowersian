@@ -3,7 +3,7 @@
 
 =icon-highlight( $color )
   color: $color
-  text-shadow: 0 0.09em 0 darken($color, 15%), 0 0.1em 0.5em gray
+  +three-d-shadow( $color )
 
 =backdrop-filter( $filters )
   +prefixer( backdrop-filter, $filters, webkit spec )
