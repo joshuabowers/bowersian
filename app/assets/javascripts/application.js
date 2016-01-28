@@ -22,4 +22,5 @@
 //= require meltdown/js/jquery.meltdown
 //= require jquery-timeago/jquery.timeago
 //
+//= require jquery_extensions
 //= require_tree .
