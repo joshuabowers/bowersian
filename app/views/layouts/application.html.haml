@@ -13,10 +13,12 @@
       %h1= link_to 'Bowersian', root_path
       %nav
         - if user_signed_in?
-          = link_to 'add', new_article_path, class: 'material-icons md-light md-2em'
-          = link_to 'lock_open', destroy_user_session_path, method: :delete, class: 'material-icons md-light md-2em'
+          .hint--info.hint--bottom.hint--bounce.hint--rounded{data: { hint: 'New article' }}= link_to 'add', new_article_path, class: 'material-icons md-light md-2em'
+          .hint--info.hint--bottom.hint--bounce.hint--rounded{data: { hint: 'Log out' }}= link_to 'lock_open', destroy_user_session_path, method: :delete, class: 'material-icons md-light md-2em'
+          .hint--info.hint--bottom.hint--bounce.hint--rounded{data: { hint: current_user.email }}
+            .material-icons.md-light.md-2em person
         - else
-          = link_to 'lock', new_user_session_path, class: 'material-icons md-light md-2em'
+          .hint--info.hint--bottom.hint--bounce.hint--rounded{data: { hint: 'Log in' }}= link_to 'lock', new_user_session_path, class: 'material-icons md-light md-2em'
     %main
       = yield
       %footer#notifications

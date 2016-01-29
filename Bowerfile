@@ -6,3 +6,4 @@
 asset 'meltdown'
 asset 'pygments'
 asset 'jquery-timeago'
+asset 'hint.css'

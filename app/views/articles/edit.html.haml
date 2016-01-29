@@ -4,8 +4,11 @@
       = link_to 'cancel', @article, class: %w{ material-icons md-dark md-2em md-neutral }
     %h2 Editing article
     %nav
-      - if user_signed_in?
-        %span.material-icons.md-dark.md-2em.md-good#save-article
-          save
-        = link_to 'delete', @article, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: %w{ material-icons md-dark md-2em md-bad }
+      - if user_signed_in? and policy(@article).create?
+        .hint--success.hint--bottom-left.hint--bounce.hint--rounded{data: { hint: 'Update article' }}
+          %span.material-icons.md-dark.md-2em.md-good#save-article
+            save
+      - if user_signed_in? and policy(@article).destroy?
+        .hint--error.hint--bottom-left.hint--bounce.hint--rounded{data: { hint: 'Destroy aricle' }}
+          = link_to 'delete', @article, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: %w{ material-icons md-dark md-2em md-bad }
   = render 'form'

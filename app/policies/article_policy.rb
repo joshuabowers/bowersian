@@ -10,11 +10,11 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def create?
-    super or user.has_role? :editor, record
+    super or user.has_role? :editor, record or user.has_role? :author, record
   end
 
   def update?
-    super or record.author == user or user.has_role :editor, record
+    super or record.author == user or user.has_role? :editor, record
   end
 
   def destroy?

@@ -3,6 +3,7 @@
   "dependencies": {
     "meltdown": "latest",
     "pygments": "latest",
-    "jquery-timeago": "latest"
+    "jquery-timeago": "latest",
+    "hint.css": "latest"
   }
 }

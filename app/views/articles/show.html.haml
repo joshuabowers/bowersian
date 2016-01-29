@@ -4,8 +4,8 @@
       = link_to 'arrow_back', articles_path, class: %w{ material-icons md-dark md-2em }
     %h2= @article.title
     %nav
-      - if user_signed_in?
-        = link_to 'edit', edit_article_path(@article), class: %w{ material-icons md-dark md-2em }
+      - if user_signed_in? and policy(@article).edit?
+        .hint--info.hint--bottom-left.hint--bounce.hint--rounded{data: { hint: 'Edit article' }}= link_to 'edit', edit_article_path(@article), class: %w{ material-icons md-dark md-2em }
 
   = @article.body_html.html_safe
 
