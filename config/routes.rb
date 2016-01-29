@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'blog/search' => 'blog#search', as: :blog_search
   get 'blog(/:year(/:month(/:day(/:slug))))' => 'blog#slugged_index', as: :blog_slugged_index
   resources :articles

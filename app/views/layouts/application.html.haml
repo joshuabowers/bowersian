@@ -6,7 +6,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = auto_discovery_link_tag :atom, { controller: :articles, action: :index }
+    = auto_discovery_link_tag :atom, articles_path
     = csrf_meta_tags
   %body{ class: [ controller_name, action_name ] }
     %header#site-header
@@ -16,7 +16,6 @@
     %main
       = yield
       %footer#notifications
-        - if notice
-          #notice= notice
-        - if alert
-          #alert= alert
+        - [:notice, :alert].each do |message|
+          -if send( message )
+            %div{ id: message }= send message

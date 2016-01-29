@@ -1,0 +1,52 @@
+.sessions, .registrations, .passwords
+  @extend %flexed--column
+  main
+    @extend %flexible
+    @extend %flexed--column
+    @extend %flexed-align--centered
+    @extend %flexed-justify--centered
+    background-color: lightgray
+    color: black
+
+    section
+      border-radius: 0.3em
+      padding: 2em 3em
+      @extend %animatable
+      background-color: rgba(white, 0.75)
+
+      &:hover, &:focus
+        box-shadow: 0 0.5em 1em gray
+
+      .form-actions
+        margin-top: 0.5em
+        text-align: right
+
+      header
+        margin-bottom: 2em
+
+      #{$all-text-inputs}
+        width: 100%
+        min-width: 15em
+        background-color: rgba(white, 0.75)
+        border: none
+        border-radius: 0.2em
+        // padding: 0.25em 0.5em
+        margin-bottom: 0.5em
+
+      .hint
+        display: block
+        text-align: center
+        font-style: italic
+        color: gray
+        width: 100%
+        margin-top: -0.25em
+        margin-bottom: 0.75em
+
+      .input.boolean
+        margin-bottom: 0.5em
+
+      footer
+        margin-top: 1em
+        border-top: 0.1em dotted gray
+        padding-top: 0.5em
+        text-align: right
