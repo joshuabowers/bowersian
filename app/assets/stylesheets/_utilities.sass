@@ -11,6 +11,17 @@
 =three-d-shadow( $color: white, $darken-by: 15% )
   text-shadow: 0 0.09em 0 darken($color, $darken-by), 0 0.1em 0.5em $color
 
+=transparent-card( $color, $border-color: auto )
+  $text-color: lighten( $color, 25% )
+  @if $border-color == auto
+    $border-color: $text-color
+  @if $border-color != none
+    border: 0.1em dotted $border-color
+  color: $text-color
+  background-color: transparentize( $color, 0.25 )
+  padding: 0.5em 1em
+  box-shadow: 0 0.5em 1em darken( $color, 10% )
+
 // =page-break-inside( $value )
 //   +prefixer( page-break-inside, $value, webkit spec )
 
