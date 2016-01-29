@@ -1,13 +1,15 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :show]
+  after_action :verify_policy_scoped, only: :index
 
   # GET /articles
   # GET /articles.json
   def index
     # Todo: this will eventually need to take some search parameters into
     # account, given to it via BlogController.
-    @articles = Article.published.order( created_at: -1 )
+    @articles = policy_scope(Article).order( created_at: -1 )
   end
 
   # GET /articles/1
@@ -18,16 +20,21 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
+    authorize @article
   end
 
   # GET /articles/1/edit
   def edit
+    authorize @article
   end
 
   # POST /articles
   # POST /articles.json
   def create
+    authorize Article
+    
     @article = Article.new(article_params)
+    @article.author = current_user
 
     respond_to do |format|
       if @article.save
@@ -43,6 +50,8 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
+    authorize @article
+
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to @article, notice: 'Article was successfully updated.' }
@@ -57,6 +66,8 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
+    authorize @article
+
     @article.destroy
     respond_to do |format|
       format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }

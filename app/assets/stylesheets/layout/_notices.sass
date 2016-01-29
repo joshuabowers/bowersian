@@ -6,13 +6,15 @@
   margin-top: 1em
   z-index: 10
 
-#notice, #alert
-  margin-bottom: 1em
+  .notice, .alert, .error
+    margin-bottom: 1em
+    display: none
 
-#notice
-  display: none
-  +transparent-card( darken( $site-green, 25% ) )
+  .notice
+    +transparent-card( darken( $site-green, 25% ) )
 
-#alert
-  display: none
-  +transparent-card( darken( $site-yellow, 25% ) )
+  .alert
+    +transparent-card( darken( $site-yellow, 25% ) )
+
+  .error
+    +transparent-card( darken( $site-red, 25% ) )

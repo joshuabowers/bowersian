@@ -10,3 +10,4 @@
         Created
         %time.timeago{ datetime: article.created_at.to_s(:iso8601) }
           = article.created_at.to_s( :long )
+        by #{ article.author.email }

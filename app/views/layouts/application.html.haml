@@ -20,6 +20,5 @@
     %main
       = yield
       %footer#notifications
-        - [:notice, :alert].each do |message|
-          -if send( message )
-            %div{ id: message }= send message
+        - flash.each do |key, value|
+          %div{ class: key }= value
