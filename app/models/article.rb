@@ -10,6 +10,9 @@ class Article
   field :topics, type: Array
   field :slug, type: String
   field :media, type: Array, default: []
+  resourcify
+
+  belongs_to :author, class_name: 'User', inverse_of: :articles
 
   index( { created_at: 1, slug: 1 }, { unique: true } )
 
