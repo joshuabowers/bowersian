@@ -14,7 +14,8 @@
       @extend %animatable
       background-color: rgba(white, 0.75)
 
-      &:hover, &:focus
+      &:hover
+        margin-top: -0.3em
         box-shadow: 0 0.5em 1em gray
 
       .form-actions
@@ -25,13 +26,15 @@
         margin-bottom: 2em
 
       #{$all-text-inputs}
-        width: 100%
+        width: calc(100% - 1em)
         min-width: 15em
-        background-color: rgba(white, 0.75)
+        background-color: rgba(white, 0.25)
         border: none
         border-radius: 0.2em
-        // padding: 0.25em 0.5em
+        padding: 0.25em 0.5em
         margin-bottom: 0.5em
+        &:focus
+          background-color: rgba(white, 0.75)
 
       .hint
         display: block

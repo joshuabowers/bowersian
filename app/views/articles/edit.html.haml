@@ -1,9 +1,11 @@
 %article.article
   %header
+    %nav
+      = link_to 'cancel', @article, class: %w{ material-icons md-dark md-2em md-neutral }
     %h2 Editing article
     %nav
-      %span.material-icons.md-dark.md-2em.md-good#save-article
-        save
-      = link_to 'cancel', @article, class: %w{ material-icons md-dark md-2em md-neutral }
-      = link_to 'delete', @article, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: %w{ material-icons md-dark md-2em md-bad }
+      - if user_signed_in?
+        %span.material-icons.md-dark.md-2em.md-good#save-article
+          save
+        = link_to 'delete', @article, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: %w{ material-icons md-dark md-2em md-bad }
   = render 'form'
