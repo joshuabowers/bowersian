@@ -5,7 +5,7 @@ module Extensions
     ::AutoHtml::add_filter(:rougecarpet).with({}) do |text, options|
       options.merge!(
         no_intra_emphasis: true,
-        autolink: false,
+        autolink: true,
         tables: true,
         fenced_code_blocks: true,
         disable_indented_code_blocks: true

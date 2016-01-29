@@ -5,7 +5,7 @@
     %h2 New article
     %nav
       - if user_signed_in? and policy(Article).create?
-        .hint--info.hint--bottom-left.hint--bounce.hint--rounded{data: { hint: 'Create article' }}
+        .hint--success.hint--bottom-left.hint--bounce.hint--rounded{data: { hint: 'Create article' }}
           %span.material-icons.md-dark.md-2em.md-good#save-article
             save
   = render 'form'
