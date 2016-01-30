@@ -1,0 +1,37 @@
+.markdown
+  @extend %flexible
+  @extend %flexed--row
+
+  @media #{ $media-query-tablet }, #{ $media-query-mobile }
+    +flex-direction( column )
+
+  .editor, .preview
+    @extend %flexible
+
+  .editor
+    @extend %flexed--column
+    textarea
+      resize: none
+      border: none
+
+  .toolbar
+    @extend %toolbar-list
+    margin-bottom: 0.25em
+    box-shadow: 0 0.5em 1em -0.6em gray
+    z-index: 10
+    li.separator
+      margin-left: 0.5em
+      margin-right: 0.6em
+      width: 0.1em
+      border-right: 0.1em dotted black
+      cursor: default
+
+    .material-icons
+      cursor: pointer
+      @extend %animatable
+
+      &:hover
+        color: $site-blue
+
+      &:active
+        color: $site-green

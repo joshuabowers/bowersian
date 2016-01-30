@@ -1,0 +1,12 @@
+.markdown
+  .editor
+    .toolbar
+      %ul
+        - editor_toolbar_buttons.each do |button|
+          - if button.present?
+            %li.hint--info.hint--bottom.hint--bounce.hint--rounded{ data: { hint: button[:title].to_s.titleize } }
+              .material-icons.md-dark.md-2em{ class: toolbar_button_class_name( button[:title] ), data: { value: button[:value] } }= button[:icon_name]
+          - else
+            %li.separator &nbsp;
+    = f.input_field :body, as: :text, placeholder: 'Have something to say?'
+  .preview

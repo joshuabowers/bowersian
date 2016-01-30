@@ -5,7 +5,7 @@
 $(document).on 'page:change', (args) ->
   $('time.timeago').timeago()
 
-  $('.markdown.editor').meltdown()
+  $('.markdown.editor') #.meltdown()
 
   $('#save-article').on 'click', ->
     $('.article form').submit()

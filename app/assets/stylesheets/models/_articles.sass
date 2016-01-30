@@ -100,6 +100,18 @@
     @extend %flexed--row
     &:not(:last-child)
       margin-bottom: 0.5em
+
+  #article_title
+    border: none
+    font-size: 2em
+    border-bottom: 0.2em solid gray
+    color: gray
+
+    &:focus
+      color: black
+      outline: none
+      border-bottom-color: $site-blue
+
   textarea, input
     @extend %flexible
   .meltdown_wrap, .meltdown_editor-wrap, .meltdown_editor-deco

@@ -85,3 +85,15 @@
 
 %animatable
   +transition( all 0.5s ease )
+
+%toolbar-list
+  ul, li
+    list-style: none
+    @extend %paddingless
+    @extend %marginless
+  ul
+    @extend %flexed--row
+    @extend %flexed-align--centered
+  li
+    display: inline-block
+    @extend %flexible--not
