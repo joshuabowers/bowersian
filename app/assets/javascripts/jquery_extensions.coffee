@@ -24,6 +24,7 @@ $.fn.toPx = (settings) ->
 # Adapted to take into account a sigil for specifying end range.
 $.fn.extend
   insertAtCaret: (myValue) ->
+    caretExpression = /([^\^]*)\^([^\^]*)\^([^\^]*)/
     this.each (i) ->
       # For browsers like Internet Explorer
       if document.selection
@@ -36,7 +37,6 @@ $.fn.extend
         startPos = this.selectionStart
         endPos = this.selectionEnd
         scrollTop = this.scrollTop
-        caretExpression = /([^\^]*)\^([^\^]*)\^([^\^]*)/
         before = ''
         after = ''
         match = caretExpression.exec myValue
@@ -53,5 +53,7 @@ $.fn.extend
         this.selectionEnd = startPos + before.length + myValue.length
         this.scrollTop = scrollTop
       else
-        this.value += myValue
+        match = caretExpression.exec myValue
+        this.value +=  match[1] + match[2] + match[3]
         this.focus()
+      $(this).change()

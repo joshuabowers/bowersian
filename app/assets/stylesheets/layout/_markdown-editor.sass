@@ -16,9 +16,26 @@
 
   .toolbar
     @extend %toolbar-list
+    @extend %animatable
     margin-bottom: 0.25em
-    box-shadow: 0 0.5em 1em -0.6em gray
-    z-index: 10
+    box-shadow: 0 0.4em 1em -0.6em gray
+    z-index: 1
+    +user-select( none )
+
+    &.stuck
+      position: fixed
+      background-color: white
+      width: calc(50% - 3em)
+
+      &.expanded
+        width: calc(100% - 3em)
+
+      & ~ textarea
+        margin-top: 2em
+
+    ul, li
+      +user-select( none )
+
     li.separator
       margin-left: 0.5em
       margin-right: 0.6em
@@ -29,9 +46,29 @@
     .material-icons
       cursor: pointer
       @extend %animatable
+      +user-select( none )
 
       &:hover
         color: $site-blue
 
       &:active
         color: $site-green
+
+  .preview
+    margin-left: 3em
+    @extend %animatable
+
+    &.hidden
+      @extend %flexible--not
+      margin-left: 0
+      width: 0
+      opacity: 0
+
+      @media #{ media-query-tablet }, #{ $media-query-mobile }
+        width: auto
+        height: 0
+        margin-top: 0
+
+    @media #{ $media-query-tablet }, #{ $media-query-mobile}
+      margin-left: 0
+      margin-top: 1.5em

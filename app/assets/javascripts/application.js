@@ -16,11 +16,8 @@
 //= require ahoy
 //
 // Bower Files
-//= require meltdown/js/lib/rangyinputs-jquery.min
-//= require meltdown/js/lib/element_resize_detection
-//= require meltdown/js/lib/js-markdown-extra
-//= require meltdown/js/jquery.meltdown
 //= require jquery-timeago/jquery.timeago
+//= require markdown/lib/markdown
 //
 //= require jquery_extensions
 //= require_tree .

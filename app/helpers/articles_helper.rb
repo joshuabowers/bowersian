@@ -26,7 +26,9 @@ module ArticlesHelper
     toolbar_button( :quote, :format_quote, "> ^Quoted text^" ),
     toolbar_button( :horizontal_rule, :border_horizontal, "\n* * *\n^^" ),
     toolbar_button( :code_block, :code, "\n```\n^code^\n```\n" ),
-    toolbar_button( :code_inline, :settings_ethernet, '`^code^`' )
+    toolbar_button( :code_inline, :settings_ethernet, '`^code^`' ),
+    nil,
+    toolbar_button( :toggle_preview, :visibility )
   ]
 
   def randomly_embiggen
