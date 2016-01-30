@@ -4,6 +4,7 @@
     "pygments": "latest",
     "jquery-timeago": "latest",
     "hint.css": "latest",
-    "markdown": "latest"
+    "markdown": "latest",
+    "to-markdown": "latest"
   }
 }

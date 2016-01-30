@@ -18,6 +18,7 @@
 // Bower Files
 //= require jquery-timeago/jquery.timeago
 //= require markdown/lib/markdown
+//= require to-markdown/dist/to-markdown
 //
 //= require jquery_extensions
 //= require_tree .
