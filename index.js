@@ -22,6 +22,15 @@ app.get('/api/articles', async (req, res, next) => {
   }
 })
 
+app.post('/api/articles', async (req, res, next) => {
+  try {
+    // TODO: Create a new article and save to the database.
+    res.sendStatus(204)
+  } catch(e) {
+    next( e )
+  }
+})
+
 const path = require('path')
 
 // Serve static files from the React frontend app
