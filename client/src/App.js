@@ -18,7 +18,7 @@ function App() {
         >
           Learn React
         </a>
-        <p>Testing hot reload. You working?</p>
+        <p>Testing hot reload. You working? Blah blah</p>
       </header>
     </div>
   );
