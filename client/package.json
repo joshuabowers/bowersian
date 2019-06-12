@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "http-proxy-middleware": "^0.19.1",
     "husky": "^2.4.1",
+    "jest-enzyme": "^7.0.2",
     "lint-staged": "^8.2.0",
     "prettier": "^1.18.2",
     "react": "^16.8.6",
@@ -12,6 +15,7 @@
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
     "react-styleguidist": "^9.1.6",
+    "react-test-renderer": "^16.8.6",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.3"
   },
