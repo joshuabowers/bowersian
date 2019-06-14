@@ -1,9 +1,13 @@
 import React from 'react';
 import styles from './Header.module.css';
 
-const Header = ({ title, ...props }) => (
+export interface HeaderProps {
+  title: string;
+}
+
+const Header = (props: HeaderProps) => (
   <header className={styles.Header}>
-    <h1>{title}</h1>
+    <h1>{props.title}</h1>
   </header>
 );
 

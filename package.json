@@ -7,6 +7,8 @@
   "author": "Joshua Bowers <joshua.bowers+code@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/enzyme": "^3.9.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "nodemon": "^1.19.1"
@@ -17,6 +19,8 @@
     "heroku-postbuild": "cd client && yarn install && yarn build"
   },
   "nodemonConfig": {
-    "ignore": ["client/*"]
+    "ignore": [
+      "client/*"
+    ]
   }
 }
