@@ -1,15 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Header from './Header.component';
+import { Header } from './Header.component';
 
-it('renders without crashing', () => {
-  shallow(<Header title="Articles" />);
-});
+describe(Header, () => {
+  it('renders without crashing', () => {
+    shallow(<Header title="Articles" />);
+  });
 
-it('renders the title', () => {
-  const title = 'Articles';
-  const wrapper = shallow(<Header title={title} />);
-  const header = <h1>{title}</h1>;
+  it('renders the title', () => {
+    const title = 'Articles';
+    const wrapper = shallow(<Header title={title} />);
+    const header = <h1>{title}</h1>;
 
-  expect(wrapper).toContainReact(header);
+    expect(wrapper).toContainReact(header);
+  });
 });
