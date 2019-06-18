@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware, Middleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducer, AppState } from './reducers';
+import { historyChangedMiddleware } from './history';
 
 export const configureStore = (preloadedState?: AppState) => {
-  const middlewares: Middleware[] = [];
+  const middlewares: Middleware[] = [historyChangedMiddleware];
 
   if (process.env.NODE_ENV === 'development') {
     const reduxLogger = require('redux-logger');
