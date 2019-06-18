@@ -1,14 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Middleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducer, AppState } from './reducers';
 
 export const configureStore = (preloadedState?: AppState) => {
-  const middlewares = [];
+  const middlewares: Middleware[] = [];
 
   if (process.env.NODE_ENV === 'development') {
-    const logger = require('redux-logger');
+    const reduxLogger = require('redux-logger');
 
-    middlewares.push(logger);
+    middlewares.push(reduxLogger.logger as Middleware);
   }
 
   const middlewareEnhancer = applyMiddleware(...middlewares);

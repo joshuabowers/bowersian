@@ -9,5 +9,8 @@ export interface HeaderProps {
 export const Header = (props: HeaderProps) => (
   <header className={styles.Header}>
     <h1>{props.title}</h1>
+    <ul>
+      <li>Log in</li>
+    </ul>
   </header>
 );

@@ -1,3 +1,5 @@
+import { Action } from 'redux';
+
 export interface SystemState {
   loggedIn: boolean;
   token: string;
@@ -7,12 +9,12 @@ export interface SystemState {
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 
-interface LogInAction {
+interface LogInAction extends Action<string> {
   type: typeof LOG_IN;
   payload: SystemState;
 }
 
-interface LogOutAction {
+interface LogOutAction extends Action<string> {
   type: typeof LOG_OUT;
   payload: SystemState;
 }
