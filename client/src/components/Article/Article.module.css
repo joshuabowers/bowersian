@@ -1,0 +1,7 @@
+.Article.preview {
+  text-overflow: ellipsis;
+}
+
+.Article.full {
+  columns: 80em auto;
+}
