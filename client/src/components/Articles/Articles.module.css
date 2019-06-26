@@ -1,0 +1,4 @@
+.Articles {
+  display: grid;
+  grid: auto-flow / repeat(4, 1fr);
+}
