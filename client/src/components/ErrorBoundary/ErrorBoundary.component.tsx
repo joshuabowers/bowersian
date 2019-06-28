@@ -24,7 +24,7 @@ export class ErrorBoundary extends Component<
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     // Should change this to a logging service.
-    console.log(error, info);
+    // console.error(error, info);
   }
 
   render() {

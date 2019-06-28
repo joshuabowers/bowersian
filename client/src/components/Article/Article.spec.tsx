@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Article } from './Article.component';
 import { ErrorBoundary } from 'components/ErrorBoundary';
@@ -10,7 +10,15 @@ const contentText =
 
 describe(Article, () => {
   it('renders without crashing', () => {
-    shallow(<Article title="In the Upside-Down" />);
+    shallow(<Article title="In the Upside-Down" content={contentText} />);
+  });
+
+  it('renders its title', () => {
+    const wrapper = shallow(
+      <Article title={titleText} content={contentText} />
+    );
+    const title = <h2>{titleText}</h2>;
+    expect(wrapper).toContainReact(title);
   });
 
   describe('when in preview mode', () => {
@@ -22,6 +30,7 @@ describe(Article, () => {
     });
 
     it('must have a synopsis', () => {
+      spyOn(console, 'error');
       const wrapper = mount(
         <ErrorBoundary>
           <Article preview title={titleText} />
@@ -34,8 +43,8 @@ describe(Article, () => {
       const wrapper = mount(
         <Article preview title={titleText} synopsis={synopsisText} />
       );
-      const synopsis = <>{synopsisText}</>;
-      expect(wrapper).toContainReact(synopsis);
+      const text = <blockquote>{synopsisText}</blockquote>;
+      expect(wrapper).toContainReact(text);
     });
 
     it('does not render its content', () => {
@@ -47,13 +56,21 @@ describe(Article, () => {
           content={contentText}
         />
       );
-      const content = <>{contentText}</>;
-      expect(wrapper).not.toContainReact(content);
+      const text = <section>{contentText}</section>;
+      expect(wrapper).not.toContainReact(text);
     });
   });
 
   describe('when in full mode', () => {
+    it('is in full mode', () => {
+      const wrapper = mount(
+        <Article title={titleText} content={contentText} />
+      );
+      expect(wrapper.prop('preview')).toBeFalsy();
+    });
+
     it('must have content', () => {
+      spyOn(console, 'error');
       const wrapper = mount(
         <ErrorBoundary>
           <Article title={titleText} />
@@ -66,21 +83,20 @@ describe(Article, () => {
       const wrapper = mount(
         <Article title={titleText} content={contentText} />
       );
-      const content = <p>{contentText}</p>;
-      expect(wrapper).toContainReact(content);
+      const text = <section>{contentText}</section>;
+      expect(wrapper).toContainReact(text);
     });
 
     it('does not render its synopsis', () => {
       const wrapper = mount(
         <Article
-          preview
           title={titleText}
           synopsis={synopsisText}
           content={contentText}
         />
       );
-      const synopsis = <p>{synopsisText}</p>;
-      expect(wrapper).toContainReact(synopsis);
+      const text = <blockquote>{synopsisText}</blockquote>;
+      expect(wrapper).not.toContainReact(text);
     });
   });
 });

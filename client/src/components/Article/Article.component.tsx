@@ -20,7 +20,14 @@ export const Article = (props: ArticleProps) => {
   }
   return (
     <article className={styles.Article}>
-      {props.preview ? props.synopsis : props.content}
+      <header>
+        <h2>{props.title}</h2>
+      </header>
+      {props.preview ? (
+        <blockquote>{props.synopsis}</blockquote>
+      ) : (
+        <section>{props.content}</section>
+      )}
     </article>
   );
 };
