@@ -1,4 +1,5 @@
 import * as React from 'react';
+import TimeAgo from 'react-timeago';
 import styles from './Article.module.css';
 
 export interface ArticleProps {
@@ -10,7 +11,34 @@ export interface ArticleProps {
   synopsis?: string;
   /** The body of the article. Should be in markdown. */
   content?: string;
+  /** The date when the article was published. */
+  publishedAt?: string | Date;
+  /** The user who wrote/published this article. */
+  author?: string;
 }
+
+export interface ArticleFooterProps {
+  /** The date when the article was published. */
+  publishedAt?: string | Date;
+  /** The user who wrote/published this article. */
+  author?: string;
+}
+
+export const ArticleFooter = (props: ArticleFooterProps) => {
+  if (!props.publishedAt && !props.author) {
+    return <></>;
+  }
+  return (
+    <footer>
+      {props.publishedAt && <TimeAgo date={props.publishedAt} />}
+      {props.author && (
+        <address>
+          <a href={`/about/${props.author.toLowerCase()}`}>{props.author}</a>
+        </address>
+      )}
+    </footer>
+  );
+};
 
 export const Article = (props: ArticleProps) => {
   if (props.preview && !props.synopsis) {
@@ -28,6 +56,7 @@ export const Article = (props: ArticleProps) => {
       ) : (
         <section>{props.content}</section>
       )}
+      {ArticleFooter(props)}
     </article>
   );
 };
