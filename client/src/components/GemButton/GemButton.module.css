@@ -1,0 +1,39 @@
+.GemButton {
+  --shadow-color: rgba(0, 0, 0, 0.75);
+  box-sizing: border-box;
+  font-size: 24px;
+  color: gold;
+  text-shadow: 0 0.1em 0.1em var(--shadow-color);
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0.25em;
+  margin: 0;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.GemButton:before {
+  transform: translate(-0.25em, -0.25em) rotate(45deg);
+  background-color: steelblue;
+  border-radius: 25%;
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  box-shadow: 0.05em 0.05em 0.1em var(--shadow-color);
+}
+
+.GemButton,
+.GemButton:before {
+  transition: all 150ms ease-in-out;
+}
+
+.GemButton:hover {
+  transform: translateY(-0.1em);
+}
+
+.GemButton:hover:before {
+  box-shadow: 0.2em 0.2em 0.4em var(--shadow-color);
+}
