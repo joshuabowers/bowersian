@@ -13,7 +13,23 @@ It a GemButton doesn't specify a title, it takes it from the icon prop:
 If a GemButton is toggleable, it should specify `from` and `to` states:
 
 ```jsx
-<GemButton toggle from="settings" to="save" />
+<GemButton toggled from="edit" to="save" />
+<GemButton from="edit" to="save" />
 ```
 
 `from` would, therefore, take the place of `icon` in this use case.
+
+A toggleable GemButton has a `toggled` prop: setting this to `false` results in the `from` icon being rendered; setting this to `true` results in the `to` icon being rendered. A toggled button is visually identical, except for a color variation.
+
+```jsx
+const handleClick = () => {
+  setState((prevState, props) => ({ isToggled: !prevState.isToggled }));
+};
+initialState = { isToggled: false };
+<GemButton
+  from="edit"
+  to="save"
+  toggled={state.isToggled}
+  onClick={handleClick}
+/>;
+```

@@ -1,10 +1,9 @@
 import * as React from 'react';
 import styles from './GemButton.module.css';
-import { JSXElement } from '@babel/types';
-import { cursorTo } from 'readline';
 
 interface GemButtonDefaultProps {
   title?: string;
+  onClick?: React.MouseEventHandler;
 }
 
 export interface GemButtonSingleStateProps extends GemButtonDefaultProps {
@@ -14,7 +13,7 @@ export interface GemButtonSingleStateProps extends GemButtonDefaultProps {
 export interface GemButtonToggleableProps extends GemButtonDefaultProps {
   from: string;
   to: string;
-  current?: string;
+  toggled?: boolean;
 }
 
 const isToggleable = (props: any): props is GemButtonToggleableProps =>
@@ -27,17 +26,26 @@ export function GemButton(
 ) {
   let title = props.title;
   let icon;
+  const classes = ['material-icons', styles.GemButton];
   if (isToggleable(props)) {
-    const current = props.current || props.from;
+    const toggled = props.toggled || false;
+    const current = toggled ? props.to : props.from;
     title = title || current;
-    icon = current;
+    icon = (
+      <div className={styles.icons}>
+        <span className={styles.firstIcon}>{props.from}</span>
+        <span className={styles.secondIcon}>{props.to}</span>
+      </div>
+    );
+    if (toggled) {
+      classes.push(styles.toggled);
+    }
   } else {
     title = title || props.icon;
     icon = props.icon;
   }
-  const classes = `material-icons ${styles.GemButton}`;
   return (
-    <button className={classes} title={title}>
+    <button className={classes.join(' ')} title={title} onClick={props.onClick}>
       {icon}
     </button>
   );

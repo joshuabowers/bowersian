@@ -1,52 +1,58 @@
 .GemButton {
+  --icon-size: 24px;
   --shadow-color: rgba(0, 0, 0, 0.75);
   --text-color: hsl(50, 50%, 50%);
   --hover-text-color: hsla(50, 75%, 50%);
   --background-color: hsl(205, 35%, 50%);
   --hover-background-color: hsl(205, 75%, 50%);
+  --active-background-color: hsl(110, 75%, 50%);
+  --active-text-color: hsl(50, 60%, 25%);
+  --gem-highlight-color: rgba(255, 255, 255, 0.75);
   box-sizing: border-box;
-  font-size: 24px;
+  font-size: var(--icon-size);
   color: var(--text-color);
   text-shadow: 0 0.1em 0.1em var(--shadow-color);
   position: relative;
   background: none;
   border: none;
-  padding: 0.25em;
-  margin: 0;
+  padding: 0;
+  margin: 0.5em;
   z-index: 0;
   cursor: pointer;
 }
 
-.GemButton:before,
-.GemButton:after {
+.GemButton::before,
+.GemButton::after {
   content: '';
   transform: translate(-0.25em, -0.25em) rotate(45deg);
   border-radius: 25%;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  padding: 0.25em;
   position: absolute;
 }
 
-.GemButton:before {
+.GemButton::before {
   z-index: -1;
   background-color: var(--background-color);
   box-shadow: 0.05em 0.05em 0.1em var(--shadow-color);
 }
 
-.GemButton:after {
+.GemButton::after {
   z-index: 1;
-  left: 0.25em;
   background: radial-gradient(
-    transparent,
-    transparent 50%,
-    rgba(255, 255, 255, 0.75) 95%
+    transparent 35%,
+    var(--gem-highlight-color) 80%,
+    transparent 85%
   );
   pointer-events: none;
 }
 
 .GemButton,
-.GemButton:before,
-.GemButton:after {
+.GemButton::before,
+.GemButton::after {
   transition: all 150ms ease-in-out;
 }
 
@@ -57,8 +63,49 @@
     0 0.1em 0.05em var(--shadow-color);
 }
 
-.GemButton:hover:before {
+.GemButton:hover::before {
   background-color: var(--hover-background-color);
   box-shadow: 0.1em 0.1em 0.2em var(--shadow-color),
-    0 0 0.5em var(--hover-text-color);
+    0 0 0.5em var(--hover-background-color);
+}
+
+.GemButton:active {
+  color: var(--active-text-color);
+}
+
+.GemButton:active::before {
+  background-color: var(--active-background-color);
+  box-shadow: 0.1em 0.1em 0.2em var(--shadow-color),
+    0 0 0.5em var(--active-background-color);
+}
+
+.GemButton.toggled {
+  --background-color: hsl(205, 35%, 25%);
+  --hover-background-color: hsl(205, 75%, 25%);
+  --active-background-color: hsl(110, 75%, 25%);
+  --active-text-color: hsl(50, 75%, 75%);
+}
+
+.icons {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.firstIcon,
+.secondIcon {
+  left: 0;
+  top: 0;
+  position: absolute;
+  transition: all 200ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.secondIcon,
+.toggled .firstIcon {
+  opacity: 0;
+  transform: rotate(225deg);
+}
+
+.toggled .secondIcon {
+  opacity: 1;
+  transform: rotate(360deg);
 }
