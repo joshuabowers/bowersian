@@ -1,44 +1,18 @@
 import * as React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import Header from 'components/Header';
+import Footer from 'components/Footer';
+import styles from './App.module.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Header title="Testing HMR" />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>
-          Testing hot reload. You working? Blah blah
-          <br />
-          Wake up, Neo.
-        </p>
-        <p>
-          Knock knock.
-          <br />
-          Who's there.
-          <br />
-          An interrupting cow.
-          <br />
-          An interrupting co...
-          <br />
-          Moooo.
-        </p>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+export const App = () => (
+  <div className={styles.App}>
+    <Header title="Bowersian" />
+    {/* Main content would be subbed out based on routing. So, router here. */}
+    <main>
+      Main content goes here. Lorem ipsum dolor sit amet consectetur adipisicing
+      elit. Modi voluptatem ea, at officiis quisquam est velit blanditiis ab sit
+      dolores earum nobis a repellendus alias delectus autem ullam obcaecati
+      beatae.
+    </main>
+    <Footer />
+  </div>
+);

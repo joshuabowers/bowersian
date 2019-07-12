@@ -4,7 +4,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: darkslategray;
+  background-color: gray;
+  background-blend-mode: screen;
 }
 
 .Header h1 {

@@ -1,0 +1,6 @@
+.App {
+  display: grid;
+  grid: auto 1fr auto / auto-flow;
+  width: 100%;
+  min-height: inherit;
+}
