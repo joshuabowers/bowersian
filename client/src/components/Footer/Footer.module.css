@@ -1,4 +1,5 @@
 .Footer {
-  background-color: gray;
-  background-blend-mode: screen;
+  background-color: darkblue;
+  mix-blend-mode: screen;
+  color: white;
 }

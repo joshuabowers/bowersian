@@ -6,24 +6,37 @@ interface GemButtonDefaultProps {
   onClick?: React.MouseEventHandler;
 }
 
-export interface GemButtonSingleStateProps extends GemButtonDefaultProps {
+interface GemButtonSingleStateProps extends GemButtonDefaultProps {
   icon: string;
 }
 
-export interface GemButtonToggleableProps extends GemButtonDefaultProps {
+interface GemButtonToggleableProps extends GemButtonDefaultProps {
   from: string;
   to: string;
   toggled?: boolean;
 }
 
+export interface IGemButton {
+  (props: GemButtonSingleStateProps): JSX.Element;
+  (props: GemButtonToggleableProps): JSX.Element;
+}
+
+export type TGemButtonProps =
+  | GemButtonSingleStateProps
+  | GemButtonToggleableProps;
+
 const isToggleable = (props: any): props is GemButtonToggleableProps =>
   !!(props as GemButtonToggleableProps).from;
 
-export function GemButton(props: GemButtonSingleStateProps): JSX.Element;
-export function GemButton(props: GemButtonToggleableProps): JSX.Element;
-export function GemButton(
+// export function GemButton(props: GemButtonSingleStateProps): JSX.Element;
+// export function GemButton(props: GemButtonToggleableProps): JSX.Element;
+// export function GemButton(
+//   props: GemButtonSingleStateProps | GemButtonToggleableProps
+// ) {
+
+export const GemButton: IGemButton = (
   props: GemButtonSingleStateProps | GemButtonToggleableProps
-) {
+) => {
   let title = props.title;
   let icon;
   const classes = ['material-icons', styles.GemButton];
@@ -49,4 +62,4 @@ export function GemButton(
       {icon}
     </button>
   );
-}
+};

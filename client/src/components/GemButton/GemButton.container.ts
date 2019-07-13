@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { GemButton } from './GemButton.component';
+import { GemButton, IGemButton, TGemButtonProps } from './GemButton.component';
 import { AppState } from 'store/reducers';
 import { Dispatch } from 'redux';
 
