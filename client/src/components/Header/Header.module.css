@@ -1,4 +1,6 @@
 .Header {
+  --stroke-color: steelblue;
+  --stroke-shadow-color: steelblue;
   height: 4em;
   display: flex;
   flex-direction: row;
@@ -28,7 +30,9 @@
   margin: 0;
   margin-left: 3rem;
   font-size: 3em;
-  text-shadow: 0 0.07em gray;
+  text-shadow: -1px -1px 0 var(--stroke-color), 1px -1px 0 var(--stroke-color),
+    -1px 1px 0 var(--stroke-color), 1px 1px 0 var(--stroke-color),
+    0 0.07em 0.07em var(--stroke-shadow-color);
 }
 
 .Header ul {
