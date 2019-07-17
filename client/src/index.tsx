@@ -5,13 +5,17 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { configureStore } from './store';
 import { Provider } from 'react-redux';
+import { history } from 'store/history';
+import { Router } from 'react-router-dom';
 
 const store = configureStore();
 
 const renderApp = () =>
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <Router history={history}>
+        <App />
+      </Router>
     </Provider>,
     document.getElementById('root')
   );

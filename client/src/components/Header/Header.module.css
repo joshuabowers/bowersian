@@ -13,13 +13,13 @@
 .Header h1 {
   padding: 0;
   margin: 0;
-  margin-left: 1rem;
+  margin-left: 3rem;
   font-size: 3em;
   text-shadow: 0 0.07em gray;
 }
 
 .Header ul {
-  margin-right: 1rem;
+  margin-right: 3rem;
   display: flex;
 }
 
