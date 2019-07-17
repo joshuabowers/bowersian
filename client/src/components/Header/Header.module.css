@@ -1,5 +1,5 @@
 .Header {
-  --stroke-color: steelblue;
+  --stroke-color: #ffd89b;
   --stroke-shadow-color: steelblue;
   height: 4em;
   display: flex;
