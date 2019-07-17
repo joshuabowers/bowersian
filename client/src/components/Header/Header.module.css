@@ -4,10 +4,23 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: darkblue;
-  mix-blend-mode: screen;
+
+  position: relative;
+  z-index: 1;
   color: white;
-  box-shadow: 0 0.5em 1em hsla(0, 0%, 25%, 0.5);
+  box-shadow: 0 1rem 1rem -1rem black;
+}
+
+.Header::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.45;
 }
 
 .Header h1 {
