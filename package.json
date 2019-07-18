@@ -12,9 +12,13 @@
     "mongoose": "^5.6.3",
     "nodemon": "^1.19.1"
   },
+  "engines": {
+    "node": "12.x"
+  },
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
+    "start": "nodemon --experimental-modules index.js",
     "heroku-postbuild": "cd client && yarn install && yarn build"
   },
   "nodemonConfig": {
