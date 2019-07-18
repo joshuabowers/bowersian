@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { connect } from './server/database.js';
 
 const app = express()
 const __dirname = dirname( fileURLToPath( import.meta.url ) )
@@ -46,6 +47,9 @@ app.get('*', (req, res) => {
 })
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-  console.log(`Express server listening on port ${ PORT }`)
+
+connect().then(async () => {
+  app.listen(PORT, () => {
+    console.log(`Express server listening on port ${ PORT }`)
+  })
 })
