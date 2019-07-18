@@ -1,3 +1,4 @@
+import sslRedirect from 'heroku-ssl-redirect';
 import express from 'express';
 import cors from 'cors';
 import { join, dirname } from 'path';
@@ -8,6 +9,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) )
 
 // TODO: create a directory, server, for API routes
 
+app.use( sslRedirect() )
 app.use( cors() )
 
 // TODO: Replace with better logger
