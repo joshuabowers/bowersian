@@ -1,8 +1,8 @@
 const DATABASE_NAME = 'bowersian';
-const DATABASE_URL = `mongodb://localhost:27017/${DATABASE_NAME}`;
+const MONGODB_URI = `mongodb://localhost:27017/${DATABASE_NAME}`;
 
 const config = {
-  databaseUrl: process.env.DATABASE_URL || DATABASE_URL,
+  mongodbUri: process.env.MONGODB_URI || MONGODB_URI,
   options: {
     useNewUrlParser: true,
     autoReconnect: true,

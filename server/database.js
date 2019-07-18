@@ -5,10 +5,10 @@ import config from './database.config.js';
 const { cyan: connected, yellow: error, red: disconnected, magenta: termination } = chalk.bold;
 
 export const connect = () => {
-  const connection = mongoose.connect( config.databaseUrl, config.options );
+  const connection = mongoose.connect( config.mongodbUri, config.options );
 
   mongoose.connection.on('connected', () => {
-    console.log( connected(`Mongoose connected to ${ config.databaseUrl }`) )
+    console.log( connected(`Mongoose connected to ${ config.mongodbUri }`) )
   })
 
   mongoose.connection.on('error', err => {
@@ -17,6 +17,13 @@ export const connect = () => {
 
   mongoose.connection.on('disconnected', () => {
     console.error( disconnected('Mongoose no longer connected') )
+  })
+
+  process.once('SIGUSR2', () => {
+    mongoose.connection.close( () => {
+      console.log( termination('Nodemon triggered app restart; terminating connection.'))
+      process.kill(process.pid, 'SIGUSR2')
+    })
   })
 
   process.on('SIGINT', () => {
