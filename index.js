@@ -52,4 +52,6 @@ connect().then(async () => {
   app.listen(PORT, () => {
     console.log(`Express server listening on port ${ PORT }`)
   })
+}).catch(async (err) => {
+  console.error( err )
 })
