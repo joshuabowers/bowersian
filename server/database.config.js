@@ -5,6 +5,7 @@ const config = {
   mongodbUri: process.env.MONGODB_URI || MONGODB_URI,
   options: {
     useNewUrlParser: true,
+    useFindAndModify: false,
     autoReconnect: true,
   }
 };
