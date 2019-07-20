@@ -6,6 +6,7 @@ const config = {
   options: {
     useNewUrlParser: true,
     useFindAndModify: false,
+    useCreateIndex: true,
     autoReconnect: true,
   }
 };

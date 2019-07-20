@@ -18,6 +18,7 @@ const schema = new mongoose.Schema({
 }, { timestamps: true });
 
 schema.index({ publishedAt: 1, slug: 1 });
+schema.index({ title: 'text', body: 'text', tags: 'text' });
 
 schema.pre('save', async function() {
   if( this.isModified('title') || !this.slug ){
@@ -25,14 +26,54 @@ schema.pre('save', async function() {
   }
 })
 
-schema.statics.byDate = function(year, month) {
-  const startOfMonth = new Date( year, month, 1 );
-  const endOfMonth = new Date( year, month + 1, 0 );
-  return this.gte( startOfMonth ).lt( endOfMonth );
+schema.query.published = function() {
+  return this.where('publishedAt').lte( new Date() );
 }
 
-schema.statics.bySlug = function(slug) {
-  return this.find({ slug: slug });
+schema.query.publishedDuring = function(year, month) {
+  const query = this.published();
+  if( year && !month ){
+    query.withinYear( year );
+  } else if ( year && month ){
+    query.withinMonth( year, month );
+  }
+  return query;
+}
+
+schema.query.withinRange = function( start, end ) {
+  return this.where('publishedAt').gte( start ).lt( end );
+}
+
+schema.query.withinYear = function(year) {
+  const y = parseInt(year);
+  const startOfYear = new Date( Date.UTC( y, 0, 1 ) );
+  const endOfYear = new Date( Date.UTC( y + 1, 0, 1, 0, 0, -1 ) );
+  return this.withinRange( startOfYear, endOfYear );
+}
+
+schema.query.withinMonth = function(year, month) {
+  // Date treats months as 0-based, so decrementing to properly index.
+  const [ y, m ] = [ parseInt(year), parseInt(month) - 1 ];
+  const startOfMonth = new Date( Date.UTC( y, m, 1 ) );
+  const endOfMonth = new Date( Date.UTC( y, m + 1, 1, 0, 0, -1 ) );
+  return this.withinRange( startOfMonth, endOfMonth );
+}
+
+schema.query.bySlug = function(slug) {
+  return this.where({ slug: slug });
+}
+
+schema.query.search = function(query) {
+  if( !query ){ return this; }
+  return this.find({ '$text': { '$search': query } });
+}
+
+// Page numbers expected to be positive values >= 1
+schema.query.paginate = function(page) {
+  if( !page ){ return this; }
+  const perPage = 25;
+  const p = Math.max( 0, parseInt(page) - 1 ) * perPage;
+  return this.limit( perPage ).skip( p );
 }
 
 export const Article = mongoose.model( 'Article', schema );

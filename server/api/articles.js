@@ -5,7 +5,12 @@ const router = express.Router();
 
 router.get('/:year?/:month?', async ( req, res, next ) => {
   try {
-    const articles = await Article.find().exec();
+    const articles = await Article.find()
+      .publishedDuring( req.params.year, req.params.month )
+      .search( req.query.query )
+      .paginate( req.query.page )
+      .sort( {publishedAt: -1, title: 1} )
+      .exec();
     res.json( articles );
   } catch( e ) {
     next( e );
@@ -24,7 +29,7 @@ router.post('/', async ( req, res, next ) => {
 router.get('/:year/:month/:slug', async (req, res, next) => {
   try {
     const article = await Article.findOne()
-      .byDate( req.params.year, req.params.month )
+      .publishedDuring( req.params.year, req.params.month )
       .bySlug( req.params.slug )
       .exec()
     res.json( article );
@@ -37,7 +42,8 @@ router.put('/:id', async (req, res, next) => {
   try {
     const article = await Article.findByIdAndUpdate( 
       req.params.id, 
-      req.body
+      req.body,
+      {new: true}
     ).exec();
     res.json( article );
   } catch( e ) {

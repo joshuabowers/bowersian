@@ -4,6 +4,10 @@ import config from './database.config.js';
 
 const { cyan: connected, yellow: error, red: disconnected, magenta: termination } = chalk.bold;
 
+if( process.env.NODE_ENV !== 'production' ){
+  mongoose.set('debug', true);
+}
+
 export const connect = () => {
   const connection = mongoose.connect( config.mongodbUri, config.options );
 
