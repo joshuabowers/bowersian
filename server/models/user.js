@@ -38,6 +38,7 @@ schema.set('toJSON', {
   // Create a whitelist of non-sensitive fields.
   transform: function(doc, ret, options){
     return {
+      id: ret.id,
       email: ret.email,
       displayAs: ret.displayAs,
       createdAt: ret.createdAt,

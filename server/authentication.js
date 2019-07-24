@@ -10,7 +10,7 @@ passport.use('login', new local.Strategy({
 }, async (email, password, done) => {
   try {
     const user = await User.authenticate(email, password);
-    done(null, user, { message: ''})
+    done(null, user, { message: 'Login successful'})
   } catch( err ) {
     if( typeof err === 'string' ){
       done( null, false, { message: err } );
@@ -20,26 +20,12 @@ passport.use('login', new local.Strategy({
   }
 }));
 
-// Grabs the token from an Auth Bearer header, and verifies it hasn't
-// been blacklisted.
-// Question: will this actually work the way I expect? Hmm...
-export function withBlacklistCheck() {
+// Looks for an Auth Bearer token; if found, caches result in req.token
+export function withTokenCache() {
   const extractor = jwt.ExtractJwt.fromAuthHeaderAsBearerToken();
-  return async function(req) {
-    try {
-      const token = extractor(req);
-      if( !token ){ return null; }
-      console.log('bearer token found:', token);
-      console.log('checking blacklist');
-      const blacklisted = await TokenBlacklist.findOne().where({token: token});
-      if( blacklisted ){ return null; }
-      console.log('token not currently blacklisted: valid!');
-      // req.token = token;
-      return token;  
-    } catch( err ){
-      console.error( err );
-      return null;
-    }
+  return function(req) {
+    req.token = extractor(req);
+    return req.token;  
   }  
 }
 
@@ -53,13 +39,19 @@ export const context = {
 // Does require a DB fetch, but the endpoints require that anyway, 
 // so meh?
 passport.use('jwt', new jwt.Strategy({
-  jwtFromRequest: withBlacklistCheck(),
+  jwtFromRequest: withTokenCache(),
   secretOrKey: JWT_SECRET,
   audience: context.audience,
   issuer: context.issuer,
-}, async (claims, done) => {
+  passReqToCallback: true
+}, async (req, claims, done) => {
   try {
+    console.info('req.token:', req.token);
     console.info('token claims:', claims);
+
+    const blacklisted = await TokenBlacklist.findOne().where({token: req.token});
+    if( blacklisted ){ return done( null, false ); }
+
     const user = await User.findById( claims.sub );
     done( null, user );
   } catch( err ) {

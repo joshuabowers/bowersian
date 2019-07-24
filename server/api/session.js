@@ -24,7 +24,7 @@ router.post( '/',
 router.delete( '/', 
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    console.info( req );
+    // console.info( req );
     res.sendStatus(204);
   }
 );
