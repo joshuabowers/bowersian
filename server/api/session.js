@@ -1,6 +1,5 @@
 import express from 'express';
 import passport from 'passport';
-import { User } from '../models/user.js';
 import { TokenBlacklist } from '../models/token_blacklist.js';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET, context } from '../authentication.js';

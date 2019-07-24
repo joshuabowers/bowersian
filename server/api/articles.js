@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import { Article } from '../models/article.js';
 
 const router = express.Router();
@@ -17,14 +18,17 @@ router.get('/:year?/:month?', async ( req, res, next ) => {
   }
 });
 
-router.post('/', async ( req, res, next ) => {
-  try {
-    const article = await Article.create( req.body );
-    res.status(201).json( article );
-  } catch( e ) {
-    next( e );
+router.post('/', 
+  passport.authenticate('jwt', {session: false}),
+  async ( req, res, next ) => {
+    try {
+      const article = await Article.create( req.body );
+      res.status(201).json( article );
+    } catch( e ) {
+      next( e );
+    }
   }
-})
+);
 
 router.get('/:year/:month/:slug', async (req, res, next) => {
   try {
@@ -38,26 +42,32 @@ router.get('/:year/:month/:slug', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
-  try {
-    const article = await Article.findByIdAndUpdate( 
-      req.params.id, 
-      req.body,
-      {new: true}
-    ).exec();
-    res.json( article );
-  } catch( e ) {
-    next( e );
+router.put('/:id', 
+  passport.authenticate('jwt', {session: false}),
+  async (req, res, next) => {
+    try {
+      const article = await Article.findByIdAndUpdate( 
+        req.params.id, 
+        req.body,
+        {new: true}
+      ).exec();
+      res.json( article );
+    } catch( e ) {
+      next( e );
+    }
   }
-})
+)
 
-router.delete('/:id', async (req, res, next) => {
-  try {
-    await Article.findByIdAndRemove( req.params.id ).exec();
-    res.sendStatus( 204 );
-  } catch( e ) {
-    next( e );
+router.delete('/:id', 
+  passport.authenticate('jwt', {session: false}),
+  async (req, res, next) => {
+    try {
+      await Article.findByIdAndRemove( req.params.id ).exec();
+      res.sendStatus( 204 );
+    } catch( e ) {
+      next( e );
+    }
   }
-})
+)
 
 export default router;
