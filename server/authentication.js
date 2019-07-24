@@ -46,9 +46,6 @@ passport.use('jwt', new jwt.Strategy({
   passReqToCallback: true
 }, async (req, claims, done) => {
   try {
-    console.info('req.token:', req.token);
-    console.info('token claims:', claims);
-
     const blacklisted = await TokenBlacklist.findOne().where({token: req.token});
     if( blacklisted ){ return done( null, false ); }
 

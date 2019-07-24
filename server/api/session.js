@@ -23,9 +23,16 @@ router.post( '/',
 // Touch TokenBlacklist. Should use 'jwt' auth.
 router.delete( '/', 
   passport.authenticate('jwt', {session: false}),
-  (req, res) => {
-    // console.info( req );
-    res.sendStatus(204);
+  async (req, res) => {
+    try {
+      // User Agent has requested logout, so blacklist their token to prevent
+      // future successful logins with it.
+      await TokenBlacklist.create({ token: req.token });
+
+      res.sendStatus(204);
+    } catch( err ){
+      res.status(500).json({error: err})
+    }
   }
 );
 
