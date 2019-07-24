@@ -7,6 +7,7 @@
   "author": "Joshua Bowers <joshua.bowers+code@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -14,6 +15,9 @@
     "heroku-ssl-redirect": "^0.0.4",
     "mongoose": "^5.6.3",
     "nodemon": "^1.19.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "slug": "^1.1.0"
   },
   "engines": {
@@ -22,6 +26,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node --experimental-modules ./server/scripts/create_admin.js",
     "start": "nodemon --experimental-modules index.js",
     "heroku-postbuild": "cd client && yarn install && yarn build"
   },

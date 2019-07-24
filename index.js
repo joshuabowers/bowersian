@@ -6,6 +6,7 @@ import logger from './server/middleware/logger.js';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { connect } from './server/database.js';
+import passport from 'passport';
 
 const app = express()
 const __dirname = dirname( fileURLToPath( import.meta.url ) )
@@ -19,6 +20,10 @@ app.use( express.urlencoded({ extended: true }) )
 
 // TODO: Replace with better logger
 app.use( logger );
+
+app.use( passport.initialize() );
+
+import './server/authentication.js';
 
 import api from './server/api/index.js';
 
