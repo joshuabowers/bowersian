@@ -33,6 +33,7 @@
     "react-test-renderer": "^16.8.6",
     "react-timeago": "^4.4.0",
     "redux": "^4.0.1",
+    "redux-act": "^1.7.7",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.3",

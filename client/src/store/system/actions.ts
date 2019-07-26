@@ -1,15 +1,5 @@
-import { SystemState, LOG_IN, LOG_OUT, SystemActionTypes } from './types';
+import { createAsyncAction } from '../types';
+import { SystemState } from './types';
 
-export function logIn(newSession: SystemState): SystemActionTypes {
-  return {
-    type: LOG_IN,
-    payload: newSession
-  };
-}
-
-export function logOut(currentSession: SystemState): SystemActionTypes {
-  return {
-    type: LOG_OUT,
-    payload: currentSession
-  };
-}
+export const logIn = createAsyncAction<SystemState>('Log In');
+export const logOut = createAsyncAction<SystemState>('Log Out');

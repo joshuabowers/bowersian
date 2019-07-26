@@ -1,27 +1,32 @@
-import { SystemState, SystemActionTypes, LOG_IN, LOG_OUT } from './types';
+import { SystemState } from './types';
+import { createReducer } from 'redux-act';
+import { logIn, logOut } from './actions';
 
 const initialState: SystemState = {
+  error: undefined,
   loggedIn: false,
   token: '',
   userName: ''
 };
 
-export function systemReducer(
-  state = initialState,
-  action: SystemActionTypes
-): SystemState {
-  switch (action.type) {
-    case LOG_IN:
-      return {
-        ...state,
-        ...action.payload
-      };
-    case LOG_OUT:
-      return {
-        ...state,
-        ...action.payload
-      };
-    default:
-      return state;
-  }
-}
+const reducer = createReducer<SystemState>({}, initialState);
+
+reducer.on(logIn.start, (state, payload) => initialState);
+reducer.on(logIn.success, (state, payload) => ({
+  ...payload
+}));
+reducer.on(logIn.failure, (state, payload) => ({
+  ...state,
+  error: payload
+}));
+
+reducer.on(logOut.start, (state, payload) => initialState);
+reducer.on(logOut.success, (state, payload) => ({
+  ...payload
+}));
+reducer.on(logOut.failure, (state, payload) => ({
+  ...state,
+  error: payload
+}));
+
+export default reducer;

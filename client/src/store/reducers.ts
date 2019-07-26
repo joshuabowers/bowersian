@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { systemReducer } from './system/reducers';
+import system from './system/reducers';
 import { historyReducer } from './history/reducers';
 
 export const rootReducer = combineReducers({
-  system: systemReducer,
+  system,
   history: historyReducer
 });
 
