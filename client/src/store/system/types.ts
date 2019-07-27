@@ -1,8 +1,22 @@
 import { Action } from 'redux';
 
+export interface Login {
+  email: string;
+  password: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  displayAs: string;
+  token: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface SystemState {
   error?: string;
   loggedIn: boolean;
-  token: string;
-  userName?: string;
+  login?: Login;
+  user?: User;
 }

@@ -5,7 +5,7 @@ import {
 } from 'redux-act';
 
 export interface AsyncAction<TSuccess, TFailure> {
-  start: EmptyActionCreator;
+  request: EmptyActionCreator;
   success: SimpleActionCreator<TSuccess>;
   failure: SimpleActionCreator<TFailure>;
 }
@@ -17,7 +17,7 @@ export function createAsyncAction<TSuccess, TFailure = string>(
   baseActionName: string
 ): AsyncAction<TSuccess, TFailure> {
   return {
-    start: createAction(baseActionName),
+    request: createAction(`${baseActionName} Request`),
     success: createAction<TSuccess>(`${baseActionName} Success`),
     failure: createAction<TFailure>(`${baseActionName} Failure`)
   };

@@ -5,13 +5,13 @@ import { logIn, logOut } from './actions';
 const initialState: SystemState = {
   error: undefined,
   loggedIn: false,
-  token: '',
-  userName: ''
+  user: undefined,
+  login: undefined
 };
 
 const reducer = createReducer<SystemState>({}, initialState);
 
-reducer.on(logIn.start, (state, payload) => initialState);
+reducer.on(logIn.request, (state, payload) => initialState);
 reducer.on(logIn.success, (state, payload) => ({
   ...payload
 }));
@@ -20,7 +20,7 @@ reducer.on(logIn.failure, (state, payload) => ({
   error: payload
 }));
 
-reducer.on(logOut.start, (state, payload) => initialState);
+reducer.on(logOut.request, (state, payload) => initialState);
 reducer.on(logOut.success, (state, payload) => ({
   ...payload
 }));
