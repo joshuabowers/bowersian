@@ -1,19 +1,20 @@
 import sslRedirect from 'heroku-ssl-redirect';
 import listEndpoints from 'express-list-endpoints';
 import express from 'express';
+
+import helmet from 'helmet';
 import cors from 'cors';
+
 import logger from './server/middleware/logger.js';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { connect } from './server/database.js';
-import passport from 'passport';
 
 const app = express()
 const __dirname = dirname( fileURLToPath( import.meta.url ) )
 
-// TODO: create a directory, server, for API routes
-
 app.use( sslRedirect() )
+app.use( helmet() )
 app.use( cors() )
 app.use( express.json() )
 app.use( express.urlencoded({ extended: true }) )
@@ -21,9 +22,9 @@ app.use( express.urlencoded({ extended: true }) )
 // TODO: Replace with better logger
 app.use( logger );
 
-app.use( passport.initialize() );
+import { createAuthentication } from './server/authentication.js';
 
-import './server/authentication.js';
+createAuthentication( app );
 
 import api from './server/api/index.js';
 
@@ -34,9 +35,17 @@ app.use(express.static(join(__dirname, '/client/build')))
 
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
-  console.log(__dirname)
   res.sendFile(join(__dirname, '/client/build/index.html'))
 })
+
+// Error handler
+app.use( (err, req, res, next) => {
+  console.error(err.stack)
+  if( req.headersSent ){
+    return next( err )
+  }
+  res.status(500).json({ error: err })
+} )
 
 const PORT = process.env.PORT || 5000
 

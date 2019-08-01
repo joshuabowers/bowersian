@@ -1,33 +1,23 @@
 import express from 'express';
 import passport from 'passport';
-import { TokenBlacklist } from '../models/token_blacklist.js';
-import jwt from 'jsonwebtoken';
-import { JWT_SECRET, context } from '../authentication.js';
+import { requiresAuthentication } from '../authentication.js';
 
 const router = express.Router();
 
 router.post( '/', 
-  passport.authenticate('login', {session: false}),
+  passport.authenticate('login'),
   (req, res) => {
-    req.user.token = jwt.sign({
-      sub: req.user.id,
-    }, JWT_SECRET, {
-      expiresIn: '1d',
-      ...context
-    });
+    console.info( 'req.session:', req.session );
     res.json(req.user);
   }
 );
 
 // Touch TokenBlacklist. Should use 'jwt' auth.
 router.delete( '/', 
-  passport.authenticate('jwt', {session: false}),
+  requiresAuthentication,
   async (req, res) => {
     try {
-      // User Agent has requested logout, so blacklist their token to prevent
-      // future successful logins with it.
-      await TokenBlacklist.create({ token: req.token });
-
+      req.logOut();
       res.sendStatus(204);
     } catch( err ){
       res.status(500).json({error: err})

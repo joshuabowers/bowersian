@@ -1,57 +1,58 @@
 import passport from 'passport';
+import session from 'cookie-session';
 import local from 'passport-local';
-import jwt from 'passport-jwt';
 import { User } from './models/user.js';
-import { TokenBlacklist } from './models/token_blacklist.js';
 
-passport.use('login', new local.Strategy({
-  usernameField: 'email',
-  session: false
-}, async (email, password, done) => {
-  try {
-    const user = await User.authenticate(email, password);
-    done(null, user, { message: 'Login successful'})
-  } catch( err ) {
-    if( typeof err === 'string' ){
-      done( null, false, { message: err } );
-    } else {
-      done( err );
+export const SECRET_KEY = process.env.SECRET_KEY_BASE || 'bowersian:space-kitties'
+
+export function createAuthentication(app) {
+  app.use( session({
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // roughly a day, in milliseconds.
+      httpOnly: true,
+      sameSite: true,  
+    },
+    name: 'bowersian:session',
+    secret: SECRET_KEY
+  }) )  
+
+  passport.use('login', new local.Strategy({
+    usernameField: 'email'
+  }, async (email, password, done) => {
+    try {
+      const user = await User.authenticate(email, password);
+      done(null, user, { message: 'Login successful'})
+    } catch( err ) {
+      if( typeof err === 'string' ){
+        done( null, false, { message: err } );
+      } else {
+        done( err );
+      }
     }
-  }
-}));
+  }));
+  
+  passport.serializeUser( (user, done) => {
+    console.log( `Serializing user in session: ${ user.id }` )
+    done( null, user.id )
+  } )
 
-// Looks for an Auth Bearer token; if found, caches result in req.token
-export function withTokenCache() {
-  const extractor = jwt.ExtractJwt.fromAuthHeaderAsBearerToken();
-  return function(req) {
-    req.token = extractor(req);
-    return req.token;  
-  }  
+  passport.deserializeUser( async (id, done) => {
+    try {
+      const user = await User.findById( id );
+      done( null, user )
+    } catch( err ) {
+      done( `Session invalid: ${ err }` )
+    }
+  } )
+
+  app.use( passport.initialize() );
+  app.use( passport.session() );
 }
 
-export const JWT_SECRET = process.env.SECRET_KEY_BASE || 'secret';
-export const context = {
-  audience: 'bowersian',
-  issuer: 'bowersian.herokuapp.com'
-};
-
-// Note: JWT payload fairly simple: Sub claim is just User model id.
-// Does require a DB fetch, but the endpoints require that anyway, 
-// so meh?
-passport.use('jwt', new jwt.Strategy({
-  jwtFromRequest: withTokenCache(),
-  secretOrKey: JWT_SECRET,
-  audience: context.audience,
-  issuer: context.issuer,
-  passReqToCallback: true
-}, async (req, claims, done) => {
-  try {
-    const blacklisted = await TokenBlacklist.findOne().where({token: req.token});
-    if( blacklisted ){ return done( null, false ); }
-
-    const user = await User.findById( claims.sub );
-    done( null, user );
-  } catch( err ) {
-    done( err );
+export function requiresAuthentication( req, res, next ) {
+  if(!req.isAuthenticated()){
+    next('Not authenticated: login required')
+  } else {
+    next()
   }
-}))
+}

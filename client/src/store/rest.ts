@@ -55,11 +55,14 @@ export class Api<TModel extends IModel, TRequest = TModel>
     return (await res.json()) as TModel;
   }
 
+  // NOTE: using this for login seems dubious, as this will need to
+  // send credentials for non-login requests.
   async add(request: TRequest) {
     this.verifyEndpointAllowed(Endpoints.Add);
     const res = await fetch(this.resource, {
       method: 'POST',
-      body: JSON.stringify(request)
+      body: JSON.stringify(request),
+      credentials: 'include'
     });
     return (await res.json()) as TModel;
   }
@@ -68,7 +71,8 @@ export class Api<TModel extends IModel, TRequest = TModel>
     this.verifyEndpointAllowed(Endpoints.Edit);
     const res = await fetch(this.resource, {
       method: 'PUT',
-      body: JSON.stringify(request)
+      body: JSON.stringify(request),
+      credentials: 'include'
     });
     return (await res.json()) as TModel;
   }
@@ -76,7 +80,8 @@ export class Api<TModel extends IModel, TRequest = TModel>
   async destroy(resource: TModel) {
     this.verifyEndpointAllowed(Endpoints.Destroy);
     const res = await fetch(this.endpoint(resource.id), {
-      method: 'DELETE'
+      method: 'DELETE',
+      credentials: 'include'
     });
     return await res.json();
   }

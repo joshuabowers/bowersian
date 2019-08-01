@@ -1,6 +1,6 @@
 import express from 'express';
-import passport from 'passport';
 import { Article } from '../models/article.js';
+import { requiresAuthentication } from '../authentication.js';
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.get('/:year?/:month?', async ( req, res, next ) => {
 });
 
 router.post('/', 
-  passport.authenticate('jwt', {session: false}),
+  requiresAuthentication,
   async ( req, res, next ) => {
     try {
       const article = await Article.create( req.body );
@@ -43,7 +43,7 @@ router.get('/:year/:month/:slug', async (req, res, next) => {
 })
 
 router.put('/:id', 
-  passport.authenticate('jwt', {session: false}),
+  requiresAuthentication,
   async (req, res, next) => {
     try {
       const article = await Article.findByIdAndUpdate( 
@@ -59,7 +59,7 @@ router.put('/:id',
 )
 
 router.delete('/:id', 
-  passport.authenticate('jwt', {session: false}),
+  requiresAuthentication,
   async (req, res, next) => {
     try {
       await Article.findByIdAndRemove( req.params.id ).exec();
