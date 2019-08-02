@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
 import { logIn } from 'store/system/actions';
 import styles from './Login.module.css';
 
@@ -9,11 +9,12 @@ export const LoginForm = (props: ILoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(logIn.request({ email, password }));
+  };
   return (
-    <form
-      className={styles.LoginForm}
-      onSubmit={() => dispatch(logIn.request({ email, password }))}
-    >
+    <form className={styles.LoginForm} onSubmit={handleSubmit}>
       <label htmlFor="login-email">Email</label>
       <input
         type="email"

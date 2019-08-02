@@ -1,4 +1,5 @@
 import { all, cancelled } from 'redux-saga/effects';
+import { loginFlow } from './system/sagas';
 
 export function* sanity() {
   console.log('Running sagas');
@@ -8,5 +9,5 @@ export function* sanity() {
 }
 
 export function* rootSaga() {
-  yield all([sanity()]);
+  yield all([sanity(), loginFlow()]);
 }

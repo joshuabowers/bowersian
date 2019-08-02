@@ -46,25 +46,28 @@ export class Api<TModel extends IModel, TRequest = TModel>
   async browse(subresource?: string, query?: string) {
     this.verifyEndpointAllowed(Endpoints.Browse);
     const res = await fetch(this.endpoint(subresource || ''));
-    return (await res.json()) as TModel[];
+    return this.verfiyResponse<TModel[]>(res);
   }
 
   async read(idOrSlug: string) {
     this.verifyEndpointAllowed(Endpoints.Read);
     const res = await fetch(this.endpoint(idOrSlug));
-    return (await res.json()) as TModel;
+    return this.verfiyResponse<TModel>(res);
   }
 
   // NOTE: using this for login seems dubious, as this will need to
   // send credentials for non-login requests.
   async add(request: TRequest) {
+    console.info('request:', request);
+    console.info('as string:', JSON.stringify(request));
     this.verifyEndpointAllowed(Endpoints.Add);
     const res = await fetch(this.resource, {
       method: 'POST',
       body: JSON.stringify(request),
+      headers: { 'content-type': 'application/json' },
       credentials: 'include'
     });
-    return (await res.json()) as TModel;
+    return this.verfiyResponse<TModel>(res);
   }
 
   async edit(request: TRequest) {
@@ -74,7 +77,7 @@ export class Api<TModel extends IModel, TRequest = TModel>
       body: JSON.stringify(request),
       credentials: 'include'
     });
-    return (await res.json()) as TModel;
+    return this.verfiyResponse<TModel>(res);
   }
 
   async destroy(resource: TModel) {
@@ -83,12 +86,22 @@ export class Api<TModel extends IModel, TRequest = TModel>
       method: 'DELETE',
       credentials: 'include'
     });
-    return await res.json();
+    return this.verfiyResponse<boolean>(res);
   }
 
   verifyEndpointAllowed(endpoint: Endpoints) {
     if ((this.allowed & endpoint) === 0) {
-      throw `resource ${this.resource} does not allow access to endpoint ${endpoint}`;
+      throw new Error(
+        `resource ${this.resource} does not allow access to endpoint ${endpoint}`
+      );
     }
+  }
+
+  async verfiyResponse<TResult>(res: Response) {
+    if (res.status < 200 || res.status >= 300) {
+      console.error(res);
+      throw new Error(`Bad Request: ${res.statusText}`);
+    }
+    return (await res.json()) as TResult;
   }
 }

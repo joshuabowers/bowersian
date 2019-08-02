@@ -19,4 +19,5 @@ export interface SystemState {
   loggedIn: boolean;
   login?: Login;
   user?: User;
+  logInFormVisible: boolean;
 }
