@@ -10,11 +10,10 @@ const sessionApi = new Api<User, Login>(
   Endpoints.Add | Endpoints.Destroy
 );
 
-export function* authorize(email: string, password: string) {
+export function* authenticate(email: string, password: string) {
   try {
     const user = yield call(sessionApi.add, { email, password });
-    yield put(logIn.success(user));
-    // yield call( Api.storeItem, {token} );
+    yield put(logIn.success({ user: user, loggedIn: true }));
   } catch (error) {
     yield put(logIn.failure(error));
   }
@@ -23,7 +22,7 @@ export function* authorize(email: string, password: string) {
 export function* loginFlow() {
   while (true) {
     const { email, password } = yield take(logIn.request);
-    yield fork(authorize, email, password);
+    yield fork(authenticate, email, password);
     const payload = yield take([logOut.request, logIn.failure]);
     if (typeof payload !== 'string') {
       const {

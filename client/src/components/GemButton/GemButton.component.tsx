@@ -39,6 +39,7 @@ export const GemButton: IGemButton = (
 ) => {
   let title = props.title;
   let icon;
+  let handleClick = props.onClick;
   const classes = ['material-icons', styles.GemButton];
   if (isToggleable(props)) {
     const toggled = props.toggled || false;
@@ -58,7 +59,7 @@ export const GemButton: IGemButton = (
     icon = props.icon;
   }
   return (
-    <button className={classes.join(' ')} title={title} onClick={props.onClick}>
+    <button className={classes.join(' ')} title={title} onClick={handleClick}>
       {icon}
     </button>
   );

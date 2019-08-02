@@ -1,11 +1,7 @@
-import {
-  createAction,
-  EmptyActionCreator,
-  SimpleActionCreator
-} from 'redux-act';
+import { createAction, SimpleActionCreator } from 'redux-act';
 
-export interface AsyncAction<TSuccess, TFailure> {
-  request: EmptyActionCreator;
+export interface AsyncAction<TRequest, TSuccess, TFailure> {
+  request: SimpleActionCreator<TRequest>;
   success: SimpleActionCreator<TSuccess>;
   failure: SimpleActionCreator<TFailure>;
 }
@@ -13,11 +9,11 @@ export interface AsyncAction<TSuccess, TFailure> {
 // Creates an AsyncAction object, which contains actions for
 // initiating an asynchronous action as well as that action's
 // success and failure outcomes.
-export function createAsyncAction<TSuccess, TFailure = string>(
+export function createAsyncAction<TRequest, TSuccess, TFailure = string>(
   baseActionName: string
-): AsyncAction<TSuccess, TFailure> {
+): AsyncAction<TRequest, TSuccess, TFailure> {
   return {
-    request: createAction(`${baseActionName} Request`),
+    request: createAction<TRequest>(`${baseActionName} Request`),
     success: createAction<TSuccess>(`${baseActionName} Success`),
     failure: createAction<TFailure>(`${baseActionName} Failure`)
   };

@@ -17,6 +17,10 @@ const schema = new mongoose.Schema({
   publishedAt: Date
 }, { timestamps: true });
 
+// Note: slug might be an interesting addition to the text index:
+// while it replicates title, it does handle unicode emoji conversion,
+// so, heart emoji gets translated to 'love'. Might make certain searches
+// easier.
 schema.index({ publishedAt: 1, slug: 1 });
 schema.index({ title: 'text', body: 'text', tags: 'text' });
 
