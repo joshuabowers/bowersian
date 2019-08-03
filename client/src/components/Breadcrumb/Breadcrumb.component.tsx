@@ -8,7 +8,7 @@ export interface IBreadcrumbProps {
 
 export const Breadcrumb = (props: IBreadcrumbProps) => {
   const items = [
-    <Link to="/home" className="material-icons">
+    <Link to="/" className="material-icons">
       home
     </Link>,
     ...props.children
