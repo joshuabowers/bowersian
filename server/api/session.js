@@ -7,7 +7,6 @@ const router = express.Router();
 router.post( '/', 
   passport.authenticate('login'),
   (req, res) => {
-    console.info( 'req.session:', req.session );
     res.json(req.user);
   }
 );
@@ -18,6 +17,7 @@ router.delete( '/',
   async (req, res) => {
     try {
       req.logOut();
+      if( req.session ){ req.session = null; }
       res.sendStatus(204);
     } catch( err ){
       res.status(500).json({error: err})

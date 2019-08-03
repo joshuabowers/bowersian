@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from 'store/reducers';
-import { toggleLogInForm } from 'store/system/actions';
+import { User } from 'store/system/types';
+import { toggleLogInForm, logOut } from 'store/system/actions';
 import GemButton from 'components/GemButton';
 import styles from './Header.module.css';
 
@@ -14,10 +15,13 @@ export const Header = (props: HeaderProps) => {
   const isLoggedIn = useSelector<AppState, boolean>(
     state => state.system.loggedIn
   );
+  const user = useSelector<AppState, User | undefined>(
+    state => state.system.user
+  );
   const dispatch = useDispatch();
-  const handleClick = useCallback(e => dispatch(toggleLogInForm(undefined)), [
-    dispatch
-  ]);
+  const handleClick = useCallback(() => {
+    dispatch(isLoggedIn ? logOut.request(user) : toggleLogInForm(undefined));
+  }, [dispatch, isLoggedIn, user]);
   return (
     <header className={styles.Header}>
       <h1>{props.title}</h1>

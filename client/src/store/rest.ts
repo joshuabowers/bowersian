@@ -13,9 +13,17 @@ export interface Identifiable {
 
 export interface IModel extends Identifiable {}
 
+export interface IApiConfig<TRequest> {
+  allowed?: Endpoints;
+  singular?: boolean;
+  requestToId?: (request: TRequest) => string;
+}
+
 export interface IApi<TModel extends IModel, TRequest = TModel> {
   resource: string;
+  singular: boolean;
   allowed: Endpoints;
+  requestToId: (request: TRequest) => string;
 
   browse(subresource?: string, query?: string): Promise<TModel[]>;
   read(idOrSlug: string): Promise<TModel>;
@@ -32,15 +40,25 @@ export interface IApi<TModel extends IModel, TRequest = TModel> {
 export class Api<TModel extends IModel, TRequest = TModel>
   implements IApi<TModel, TRequest> {
   resource: string;
+  singular: boolean;
   allowed: Endpoints;
+  requestToId: (request: TRequest) => string;
 
-  constructor(resource: string, allowed: Endpoints = Endpoints.All) {
+  constructor(resource: string, config: IApiConfig<TRequest> = {}) {
     this.resource = resource;
-    this.allowed = allowed;
+    this.allowed = config.allowed || Endpoints.All;
+    this.singular = config.singular || false;
+    this.requestToId =
+      config.requestToId ||
+      ((request: TRequest) => {
+        const modelized = (request as unknown) as TModel;
+        return modelized.id;
+      });
   }
 
   endpoint(...rest: string[]) {
-    return [this.resource, ...rest].join('/');
+    const identifiers = this.singular ? [] : rest;
+    return [this.resource, ...identifiers].join('/');
   }
 
   async browse(subresource?: string, query?: string) {
@@ -58,8 +76,6 @@ export class Api<TModel extends IModel, TRequest = TModel>
   // NOTE: using this for login seems dubious, as this will need to
   // send credentials for non-login requests.
   async add(request: TRequest) {
-    console.info('request:', request);
-    console.info('as string:', JSON.stringify(request));
     this.verifyEndpointAllowed(Endpoints.Add);
     const res = await fetch(this.resource, {
       method: 'POST',
@@ -72,9 +88,10 @@ export class Api<TModel extends IModel, TRequest = TModel>
 
   async edit(request: TRequest) {
     this.verifyEndpointAllowed(Endpoints.Edit);
-    const res = await fetch(this.resource, {
+    const res = await fetch(this.endpoint(this.requestToId(request)), {
       method: 'PUT',
       body: JSON.stringify(request),
+      headers: { 'content-type': 'application/json' },
       credentials: 'include'
     });
     return this.verfiyResponse<TModel>(res);
@@ -101,6 +118,8 @@ export class Api<TModel extends IModel, TRequest = TModel>
     if (res.status < 200 || res.status >= 300) {
       console.error(res);
       throw new Error(`Bad Request: ${res.statusText}`);
+    } else if (res.status === 204) {
+      return (true as unknown) as TResult;
     }
     return (await res.json()) as TResult;
   }

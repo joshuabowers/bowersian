@@ -26,7 +26,7 @@ reducer.on(logIn.failure, (state, payload) => ({
   error: payload
 }));
 
-reducer.on(logOut.request, (state, payload) => initialState);
+reducer.on(logOut.request, (state, payload) => ({ ...state }));
 reducer.on(logOut.success, (state, payload) => ({
   ...payload
 }));
