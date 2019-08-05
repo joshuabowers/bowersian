@@ -1,3 +1,10 @@
+@import './Easings.module.css';
+
+.enterActive,
+.exitActive {
+  transition-property: opacity, transform;
+}
+
 .enter {
   opacity: 0;
   transform: translateY(-125%);
@@ -6,8 +13,7 @@
 .enterActive {
   opacity: 1;
   transform: translateY(0);
-  transition: ease-in-out 500ms;
-  transition-property: opacity, transform;
+  transition: 500ms var(--ease-out-back);
 }
 
 .exit {
@@ -17,6 +23,5 @@
 .exitActive {
   opacity: 0;
   transform: translateY(125%);
-  transition: ease-in-out 500ms;
-  transition-property: opacity, transform;
+  transition: 500ms var(--ease-in-back);
 }
