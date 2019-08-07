@@ -80,4 +80,21 @@ schema.query.paginate = function(page) {
   return this.limit( perPage ).skip( p );
 }
 
+schema.set( 'toJSON', {
+  transform: function( doc, ret, options ){
+    return {
+      id: ret.id,
+      title: ret.title,
+      body: ret.body,
+      createdAt: ret.createdAt,
+      updatedAt: ret.updatedAt,
+      publishedAt: ret.publishedAt,
+      slug: ret.slug,
+      tags: ret.tags,
+      topics: ret.topics
+    }
+  },
+  virtuals: true
+} )
+
 export const Article = mongoose.model( 'Article', schema );
