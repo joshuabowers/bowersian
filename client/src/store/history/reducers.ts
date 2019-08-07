@@ -1,23 +1,16 @@
-import { HistoryState, NAVIGATE, HistoryActionTypes } from './types';
+import { createReducer } from 'redux-act';
+import { IHistoryState } from './types';
+import { navigate } from './actions';
 import { history } from './index';
 
 // TODO: get curent path location and set here.
-const initialState: HistoryState = {
+const initialState: IHistoryState = {
   location: history.location,
   action: 'REPLACE'
 };
 
-export function historyReducer(
-  state = initialState,
-  action: HistoryActionTypes
-): HistoryState {
-  switch (action.type) {
-    case NAVIGATE:
-      return {
-        ...state,
-        ...action.payload
-      };
-    default:
-      return state;
-  }
-}
+const reducer = createReducer<IHistoryState>({}, initialState);
+
+reducer.on(navigate, (state, payload) => ({ ...state, ...payload }));
+
+export default reducer;

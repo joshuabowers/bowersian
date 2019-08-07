@@ -5,8 +5,8 @@ import { navigate } from './actions';
 export const history = createBrowserHistory();
 
 export const historyChangedMiddleware: Middleware = store => {
-  history.listen((location, historyAction) => {
-    store.dispatch(navigate(location, historyAction));
+  history.listen((location, action) => {
+    store.dispatch(navigate({ location, action }));
   });
   return next => action => next(action);
 };

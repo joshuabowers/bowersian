@@ -1,15 +1,6 @@
-import { NAVIGATE, HistoryActionTypes } from './types';
-import { Location, Action } from 'history';
+import { createAction } from 'redux-act';
+import { IHistoryState } from './types';
 
-export function navigate(
-  location: Location,
-  action: Action
-): HistoryActionTypes {
-  return {
-    type: NAVIGATE,
-    payload: {
-      location: location,
-      action: action
-    }
-  };
-}
+export const navigate = createAction<IHistoryState>(
+  'Navigated to new location'
+);
