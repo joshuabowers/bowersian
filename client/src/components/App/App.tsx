@@ -36,7 +36,7 @@ export const App = (props: IAppProps) => {
       <Breadcrumb key="breadcrumbs">
         <Link to="/articles/2019">2019</Link>
         <Link to="/articles/2019/07">July</Link>
-        <Link to="/articles/2019/07/placeholder">Placeholder</Link>
+        <Link to="/articles/2019/07/never-go-that-way">Never Go That Way</Link>
       </Breadcrumb>
       <CSSTransition
         key={props.location.key}

@@ -41,11 +41,11 @@ export const ArticleFooter = (props: ArticleFooterProps) => {
 };
 
 export const Article = (props: ArticleProps) => {
-  if (props.preview && !props.synopsis) {
-    throw new Error('A synopsis is required when in preview mode.');
-  } else if (!props.preview && !props.content) {
-    throw new Error('Content is required if in full mode.');
-  }
+  // if (props.preview && !props.synopsis) {
+  //   throw new Error('A synopsis is required when in preview mode.');
+  // } else if (!props.preview && !props.content) {
+  //   throw new Error('Content is required if in full mode.');
+  // }
   return (
     <article className={styles.Article}>
       <header>
