@@ -9,4 +9,5 @@ export interface Article {
   publishedAt: Date;
   createdAt: Date;
   updatedAt: Date;
+  uri: string;
 }

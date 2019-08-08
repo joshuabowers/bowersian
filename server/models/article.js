@@ -82,6 +82,7 @@ schema.query.paginate = function(page) {
 
 schema.set( 'toJSON', {
   transform: function( doc, ret, options ){
+    const month = ret.publishedAt.getMonth() + 1;
     return {
       id: ret.id,
       title: ret.title,
@@ -91,7 +92,13 @@ schema.set( 'toJSON', {
       publishedAt: ret.publishedAt,
       slug: ret.slug,
       tags: ret.tags,
-      topics: ret.topics
+      topics: ret.topics,
+      uri: [
+        '/articles',
+        ret.publishedAt.getFullYear(),
+        month.toString().padStart(2, '0'),
+        ret.slug
+      ].join('/')
     }
   },
   virtuals: true

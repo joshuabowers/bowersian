@@ -1,4 +1,12 @@
 .Articles {
   display: grid;
-  grid: auto-flow / repeat(4, 1fr);
+  grid: auto-flow / repeat(auto-fit, minmax(15em, 1fr));
+  grid-gap: 0.5em;
+  padding: 2em;
+  justify-items: center;
+  align-items: center;
+}
+
+.Articles h2 {
+  margin-top: 0;
 }

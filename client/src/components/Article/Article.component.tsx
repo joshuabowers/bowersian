@@ -1,6 +1,9 @@
 import * as React from 'react';
 import TimeAgo from 'react-timeago';
 import styles from './Article.module.css';
+import { Link } from 'react-router-dom';
+import { Article as IArticle } from 'store/resources/types';
+import { useSelector } from 'react-redux';
 
 export interface ArticleProps {
   /** The title of the article */
@@ -16,6 +19,12 @@ export interface ArticleProps {
   /** The user who wrote/published this article. */
   author?: string;
 }
+
+export interface IArticleProps {
+  preview: boolean;
+}
+
+export type TArticle = IArticle & IArticleProps;
 
 export interface ArticleFooterProps {
   /** The date when the article was published. */
@@ -40,23 +49,38 @@ export const ArticleFooter = (props: ArticleFooterProps) => {
   );
 };
 
-export const Article = (props: ArticleProps) => {
+function linkinate(
+  isPreview: boolean | undefined,
+  destination: string,
+  component: JSX.Element
+) {
+  console.log(destination);
+  return isPreview ? <Link to={destination}>{component}</Link> : component;
+}
+
+export const Article = (props: TArticle) => {
   // if (props.preview && !props.synopsis) {
   //   throw new Error('A synopsis is required when in preview mode.');
   // } else if (!props.preview && !props.content) {
   //   throw new Error('Content is required if in full mode.');
   // }
-  return (
-    <article className={styles.Article}>
+  // const source: TArticle = props.preview ? props : useSelector()
+  const content = (
+    <>
       <header>
         <h2>{props.title}</h2>
       </header>
       {props.preview ? (
-        <blockquote>{props.synopsis}</blockquote>
+        <blockquote>{props.summary}</blockquote>
       ) : (
-        <section>{props.content}</section>
+        <section>{props.body}</section>
       )}
       {ArticleFooter(props)}
+    </>
+  );
+  return (
+    <article className={styles.Article}>
+      {linkinate(props.preview, props.uri, content)}
     </article>
   );
 };
