@@ -14,8 +14,8 @@ export default async function logger( req, res, next ) {
   if( Object.keys(req.query).length ){
     await console.info( data('query'), ':', req.query );
   }
-  if( Object.keys(req.body).length ){
-    await console.info( data('body'), ':', req.body );
-  }
+  // if( Object.keys(req.body).length ){
+  //   await console.info( data('body'), ':', req.body );
+  // }
   next();
 }
