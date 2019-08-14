@@ -30,6 +30,12 @@ schema.pre('save', async function() {
   }
 })
 
+schema.statics.updateOneByIdWithSet = async function( id, attributes ) {
+  const original = await this.findById( id ).exec();
+  original.set( {...attributes} );
+  return await original.save();
+}
+
 schema.virtual('published')
   .get(function() { return !!this.publishedAt; })
   .set(function(v) { 
@@ -40,10 +46,36 @@ schema.virtual('published')
     } else {
       this.publishedAt = null;
     }
+  });
+
+schema.virtual('uri')
+  .get(function() {
+    if( !this.publishedAt ){ return null; }
+    const month = this.publishedAt.getMonth() + 1;
+    return [
+      '/articles',
+      this.publishedAt.getFullYear(),
+      month.toString().padStart(2, '0'),
+      this.slug
+    ].join('/')
   })
 
 schema.query.published = function() {
   return this.where('publishedAt').lte( new Date() );
+}
+
+schema.query.availableDuring = function( availablity, date ) {
+  switch( availablity ){
+    case "ALL":
+      break;
+    case "PUBLISHED":
+      this.publishedDuring( date && date.year, date && date.month )
+      break;
+    case "UNPUBLISHED":
+      this.where('publishedAt', undefined);
+      break;
+  }
+  return this;
 }
 
 schema.query.publishedDuring = function(year, month) {
