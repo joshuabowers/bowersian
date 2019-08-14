@@ -49,6 +49,7 @@ input IArticleFilter {
   date: IDate
   search: String
   available: Availability! = PUBLISHED
+  page: Int = 1
 }
 
 type Query {

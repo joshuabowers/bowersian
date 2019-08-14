@@ -6,12 +6,13 @@ export const resolvers = {
   Query: {
     me: (_, _args, context) => context.user,
 
-    // TODO: Implement pagination correctly using cursors
-    articles: async (_, {filter: { date, search, available } = {}}, _context) => {
+    articles: async (_, {
+      filter: { date, search, available, page } = {}
+    }, _context) => {
       return await Article.find()
         .availableDuring( available, date )
         .search( search )
-        // .paginate( req.query.page )
+        .paginate( page )
         .sort( {publishedAt: -1, title: 1} )
         .exec();
     },

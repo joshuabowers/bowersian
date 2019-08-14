@@ -64,6 +64,7 @@ schema.query.published = function() {
   return this.where('publishedAt').lte( new Date() );
 }
 
+// NOTE: date expected to be { year: Int, month: Int }
 schema.query.availableDuring = function( availablity, date ) {
   switch( availablity ){
     case "ALL":
@@ -72,7 +73,10 @@ schema.query.availableDuring = function( availablity, date ) {
       this.publishedDuring( date && date.year, date && date.month )
       break;
     case "UNPUBLISHED":
-      this.where('publishedAt', undefined);
+      this.or([
+        {"publishedAt": undefined},
+        {"publishedAt": {"$gt": new Date()}}
+      ])
       break;
   }
   return this;
