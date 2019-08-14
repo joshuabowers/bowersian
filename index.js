@@ -1,8 +1,6 @@
 import sslRedirect from 'heroku-ssl-redirect';
 import listEndpoints from 'express-list-endpoints';
 import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
-import { buildContext } from 'graphql-passport';
 
 import helmet from 'helmet';
 import cors from 'cors';
@@ -18,8 +16,6 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) )
 app.use( sslRedirect() )
 app.use( helmet() )
 app.use( cors() )
-// app.use( express.json() )
-// app.use( express.urlencoded({ extended: true }) )
 
 // TODO: Replace with better logger
 app.use( logger );
@@ -28,19 +24,9 @@ import { createAuthentication } from './server/authentication.js';
 
 createAuthentication( app );
 
-// import api from './server/api/index.js';
+import { createApolloServer } from './server/graphql';
 
-// app.use('/api', api);
-
-import { schema, resolvers } from './server/graphql';
-
-const server = new ApolloServer({
-  typeDefs: schema,
-  resolvers,
-  context: ({ req, res }) => buildContext({ req, res })
-});
-
-server.applyMiddleware({ app });
+const server =  createApolloServer( app );
 
 // Serve static files from the React frontend app
 app.use(express.static(join(__dirname, '/client/build')))

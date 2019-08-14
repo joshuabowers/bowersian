@@ -1,6 +1,7 @@
 import passport from 'passport';
 import session from 'cookie-session';
-import local from 'passport-local';
+// import local from 'passport-local';
+import { GraphQLLocalStrategy } from 'graphql-passport';
 import { User } from './models/user.js';
 
 export const SECRET_KEY = process.env.SECRET_KEY_BASE || 'bowersian:space-kitties'
@@ -14,22 +15,22 @@ export function createAuthentication(app) {
     },
     name: 'bowersian:session',
     secret: SECRET_KEY
-  }) )  
+  }) );
 
-  passport.use('login', new local.Strategy({
-    usernameField: 'email'
-  }, async (email, password, done) => {
-    try {
-      const user = await User.authenticate(email, password);
-      done(null, user, { message: 'Login successful'})
-    } catch( err ) {
-      if( typeof err === 'string' ){
-        done( null, false, { message: err } );
-      } else {
-        done( err );
-      }
-    }
-  }));
+  passport.use(
+    new GraphQLLocalStrategy( async (email, password, done) => {
+      try {
+        const user = await User.authenticate(email, password);
+        done(null, user, { message: 'Login successful'})
+      } catch( err ) {
+        if( typeof err === 'string' ){
+          done( null, false, { message: err } );
+        } else {
+          done( err );
+        }
+      }  
+    })
+  );
   
   passport.serializeUser( (user, done) => {
     console.log( `Serializing user in session: ${ user.id }` )

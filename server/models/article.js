@@ -22,13 +22,25 @@ const schema = new mongoose.Schema({
 // so, heart emoji gets translated to 'love'. Might make certain searches
 // easier.
 schema.index({ publishedAt: 1, slug: 1 });
-schema.index({ title: 'text', body: 'text', tags: 'text' });
+schema.index({ title: 'text', body: 'text', tags: 'text', slug: 'text' });
 
 schema.pre('save', async function() {
   if( this.isModified('title') || !this.slug ){
     this.slug = await slug( this.title, { lower: true } );
   }
 })
+
+schema.virtual('published')
+  .get(function() { return !!this.publishedAt; })
+  .set(function(v) { 
+    if( v ){
+      if(!this.publishedAt){
+        this.publishedAt = new Date();
+      }  
+    } else {
+      this.publishedAt = null;
+    }
+  })
 
 schema.query.published = function() {
   return this.where('publishedAt').lte( new Date() );
@@ -79,29 +91,5 @@ schema.query.paginate = function(page) {
   const p = Math.max( 0, parseInt(page) - 1 ) * perPage;
   return this.limit( perPage ).skip( p );
 }
-
-schema.set( 'toJSON', {
-  transform: function( doc, ret, options ){
-    const month = ret.publishedAt.getMonth() + 1;
-    return {
-      id: ret.id,
-      title: ret.title,
-      body: ret.body,
-      createdAt: ret.createdAt,
-      updatedAt: ret.updatedAt,
-      publishedAt: ret.publishedAt,
-      slug: ret.slug,
-      tags: ret.tags,
-      topics: ret.topics,
-      uri: [
-        '/articles',
-        ret.publishedAt.getFullYear(),
-        month.toString().padStart(2, '0'),
-        ret.slug
-      ].join('/')
-    }
-  },
-  virtuals: true
-} )
 
 export const Article = mongoose.model( 'Article', schema );
