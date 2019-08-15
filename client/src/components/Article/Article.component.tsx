@@ -1,9 +1,10 @@
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown';
+import { ByLine } from 'components/ByLine';
 import styles from './Article.module.css';
 import { IArticle } from 'graphql/types/article';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { ByLine } from 'components/ByLine';
 
 const findArticle = gql`
   query FindArticle($slug: ISlug!) {
@@ -46,12 +47,16 @@ export const Article = (props: IArticle) => {
   }
 
   return (
-    <article className={styles.Article}>
-      <header>
-        <h2>{data.article.title}</h2>
-      </header>
-      <section>{data.article.body}</section>
-      <ByLine {...data.article} />
-    </article>
+    <main>
+      <article className={styles.Article}>
+        <header>
+          <h2>{data.article.title}</h2>
+        </header>
+        <section>
+          <ReactMarkdown source={data.article.body} />
+        </section>
+        <ByLine {...data.article} />
+      </article>
+    </main>
   );
 };

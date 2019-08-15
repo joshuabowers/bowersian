@@ -1,7 +1,18 @@
-.Article.preview {
-  text-overflow: ellipsis;
+.Article {
+  display: grid;
+  grid: auto 1fr auto / auto-flow;
+  height: 100%;
+  padding: 2em;
 }
 
-.Article.full {
-  columns: 80em auto;
+.Article h2 {
+  margin-top: 0;
+}
+
+.Article > section {
+  columns: 20em;
+  box-decoration-break: clone;
+  /* column-fill: auto; */
+  height: 100%;
+  overflow-x: auto;
 }
