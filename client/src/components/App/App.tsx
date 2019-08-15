@@ -33,42 +33,45 @@ export const App = (props: IAppProps) => {
           <LoginForm />
         </CSSTransition>
       )} */}
-      <Breadcrumb key="breadcrumbs">
+      {/* <Breadcrumb key="breadcrumbs">
         <Link to="/articles/2019">2019</Link>
         <Link to="/articles/2019/07">July</Link>
         <Link to="/articles/2019/07/never-go-that-way">Never Go That Way</Link>
-      </Breadcrumb>
-      <CSSTransition
-        key={props.location.key}
-        timeout={1000}
-        classNames={{ ...fadeSlide }}
-      >
-        <Switch location={props.location}>
-          <Route
-            exact
-            path="/articles/:year/:month/:slug"
-            render={props => (
-              <Article
-                publishedAt={
-                  new Date(props.match.params.year, props.match.params.month)
-                }
-                slug={props.match.params.slug}
-              />
-            )}
-          />
-          <Route
-            path="/articles/:year?/:month?"
-            render={props => (
-              <Articles
-                year={props.match.params.year}
-                month={props.match.params.month}
-              />
-            )}
-          />
-          <Route path="/" component={Articles} />
-        </Switch>
-      </CSSTransition>
-      <Footer key="app-footer" />
+      </Breadcrumb> */}
+      <main>
+        <CSSTransition
+          key={props.location.key}
+          timeout={1000}
+          classNames={{ ...fadeSlide }}
+        >
+          <Switch location={props.location}>
+            <Route
+              exact
+              path="/articles/:year/:month/:slug"
+              render={props => (
+                <Article
+                  publishedAt={
+                    new Date(props.match.params.year, props.match.params.month)
+                  }
+                  slug={props.match.params.slug}
+                />
+              )}
+            />
+            <Route
+              path="/articles/:year?/:month?"
+              render={props => (
+                <Articles
+                  year={props.match.params.year}
+                  month={props.match.params.month}
+                />
+              )}
+            />
+            <Route path="/" component={Articles} />
+          </Switch>
+        </CSSTransition>
+      </main>
+
+      {/* <Footer key="app-footer" /> */}
     </TransitionGroup>
   );
 };

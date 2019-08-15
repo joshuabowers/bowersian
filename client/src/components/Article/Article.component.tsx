@@ -47,16 +47,14 @@ export const Article = (props: IArticle) => {
   }
 
   return (
-    <main>
-      <article className={styles.Article}>
-        <header>
-          <h2>{data.article.title}</h2>
-        </header>
-        <section>
-          <ReactMarkdown source={data.article.body} />
-        </section>
-        <ByLine {...data.article} />
-      </article>
-    </main>
+    <article className={styles.Article}>
+      <header>
+        <h2>{data.article.title}</h2>
+      </header>
+      <section>
+        <ReactMarkdown source={data.article.body} />
+      </section>
+      <ByLine {...data.article} />
+    </article>
   );
 };

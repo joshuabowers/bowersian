@@ -1,18 +1,22 @@
 .Article {
-  display: grid;
-  grid: auto 1fr auto / auto-flow;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
   padding: 2em;
 }
 
-.Article h2 {
-  margin-top: 0;
+.Article > header {
+  margin-bottom: 1em;
 }
 
 .Article > section {
-  columns: 20em;
+  flex: 1 0 auto;
+  height: 5em;
+  columns: 20em auto;
   box-decoration-break: clone;
-  /* column-fill: auto; */
-  height: 100%;
+  column-fill: auto;
   overflow-x: auto;
+}
+
+.Article > section p {
+  margin-bottom: 1em;
 }

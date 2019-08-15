@@ -55,5 +55,5 @@ export const Articles = (props: ArticlesProps) => {
       </>
     );
 
-  return <main className={styles.Articles}>{content}</main>;
+  return <div className={styles.Articles}>{content}</div>;
 };
