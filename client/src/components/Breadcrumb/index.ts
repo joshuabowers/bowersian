@@ -1,1 +1,1 @@
-export { default } from './Breadcrumb.container';
+export { Breadcrumb as default } from './Breadcrumb.component';

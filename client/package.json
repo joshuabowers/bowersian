@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.0",
     "@types/enzyme": "^3.10.1",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/history": "^4.7.2",
@@ -16,8 +17,10 @@
     "@types/react-transition-group": "^4.2.0",
     "@types/redux-logger": "^3.0.7",
     "@types/webpack-env": "^1.13.9",
+    "apollo-boost": "^0.4.4",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "graphql": "^14.4.2",
     "history": "^4.9.0",
     "http-proxy-middleware": "^0.19.1",
     "husky": "^2.4.1",

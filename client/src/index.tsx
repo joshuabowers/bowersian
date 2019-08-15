@@ -3,27 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import { configureStore } from './store';
-import { Provider } from 'react-redux';
-import { history } from 'store/history';
-import { Router } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react';
 
-const { store, persistor } = configureStore();
+import { createClient } from './graphql';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { BrowserRouter } from 'react-router-dom';
+
+const client = createClient();
 
 const renderApp = () =>
   ReactDOM.render(
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router history={history}>
-          <App />
-        </Router>
-      </PersistGate>
-    </Provider>,
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>,
     document.getElementById('root')
   );
-
-// ReactDOM.render(<App />, document.getElementById('root'));
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('./components/App', renderApp);

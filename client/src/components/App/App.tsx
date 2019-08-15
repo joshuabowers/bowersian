@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { useSelector } from 'react-redux';
-import { AppState } from 'store/reducers';
+// import { useSelector } from 'react-redux';
+// import { AppState } from 'store/reducers';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Breadcrumb from 'components/Breadcrumb';
@@ -18,13 +18,13 @@ export interface IAppProps {
 }
 
 export const App = (props: IAppProps) => {
-  const loginVisible = useSelector<AppState, boolean>(
-    state => state.system.logInFormVisible
-  );
+  // const loginVisible = useSelector<AppState, boolean>(
+  //   state => state.system.logInFormVisible
+  // );
   return (
     <TransitionGroup className={styles.App}>
       <Header title="Bowersian" key="app-header" />
-      {loginVisible && (
+      {/* {loginVisible && (
         <CSSTransition
           key="login-form"
           timeout={500}
@@ -32,7 +32,7 @@ export const App = (props: IAppProps) => {
         >
           <LoginForm />
         </CSSTransition>
-      )}
+      )} */}
       <Breadcrumb key="breadcrumbs">
         <Link to="/articles/2019">2019</Link>
         <Link to="/articles/2019/07">July</Link>
@@ -47,9 +47,24 @@ export const App = (props: IAppProps) => {
           <Route
             exact
             path="/articles/:year/:month/:slug"
-            component={Article}
+            render={props => (
+              <Article
+                publishedAt={
+                  new Date(props.match.params.year, props.match.params.month)
+                }
+                slug={props.match.params.slug}
+              />
+            )}
           />
-          <Route path="/articles/:year?/:month?" component={Articles} />
+          <Route
+            path="/articles/:year?/:month?"
+            render={props => (
+              <Articles
+                year={props.match.params.year}
+                month={props.match.params.month}
+              />
+            )}
+          />
           <Route path="/" component={Articles} />
         </Switch>
       </CSSTransition>
