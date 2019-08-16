@@ -1,0 +1,27 @@
+@import './Easings.module.css';
+
+.enterActive,
+.exitActive {
+  transition-property: opacity, transform;
+}
+
+.enter {
+  opacity: 0;
+  transform: scale(50%);
+}
+
+.enterActive {
+  opacity: 1;
+  transform: scale(100%);
+  transition: 500ms var(--ease-out-back);
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive {
+  opacity: 0;
+  transform: scale(50%);
+  transition: 500ms var(--ease-in-back);
+}

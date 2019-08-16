@@ -7,6 +7,12 @@
   background-color: var(--background-color);
   box-shadow: 0 2em 4em black;
   opacity: 0.9;
+
+  width: 100%;
+  height: 100%;
+
+  /* grid-column: 1 / span last-col;
+  grid-row: 1 / span last-row; */
 }
 
 .Article > header {

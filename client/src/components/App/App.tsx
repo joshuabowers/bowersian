@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-// import { useSelector } from 'react-redux';
-// import { AppState } from 'store/reducers';
 import Header from 'components/Header';
-import Footer from 'components/Footer';
 import Breadcrumb from 'components/Breadcrumb';
 import { Link, Switch, Route } from 'react-router-dom';
 import styles from './App.module.css';
@@ -45,7 +42,7 @@ export const App = (props: IAppProps) => {
           classNames={{ ...fadeSlide }}
         >
           <Switch location={props.location}>
-            <Route
+            {/* <Route
               exact
               path="/articles/:year/:month/:slug"
               render={props => (
@@ -56,7 +53,7 @@ export const App = (props: IAppProps) => {
                   slug={props.match.params.slug}
                 />
               )}
-            />
+            /> */}
             <Route
               path="/articles/:year?/:month?"
               render={props => (

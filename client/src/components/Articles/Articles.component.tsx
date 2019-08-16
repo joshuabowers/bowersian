@@ -5,6 +5,12 @@ import { Synopsis } from 'components/Synopsis';
 import styles from './Articles.module.css';
 import { IArticles } from 'graphql/types/article';
 
+import { Switch, Route } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import Article from 'components/Article';
+
+import Zoom from 'components/Transitions/Zoom.module.css';
+
 export const searchArticles = gql`
   query SearchArticles($filter: IArticleFilter) {
     articles(filter: $filter) {
@@ -48,11 +54,27 @@ export const Articles = (props: ArticlesProps) => {
     !data || data.articles === undefined ? (
       <>No results</>
     ) : (
-      <>
-        {data.articles.map(article => (
-          <Synopsis key={article.id} {...article} />
-        ))}
-      </>
+      <TransitionGroup component={null}>
+        <Switch>
+          <Route
+            exact
+            path="/articles/:year/:month/:slug"
+            render={props => (
+              <Article
+                publishedAt={
+                  new Date(props.match.params.year, props.match.params.month)
+                }
+                slug={props.match.params.slug}
+              />
+            )}
+          />
+          <Route>
+            {data.articles.map(article => (
+              <Synopsis key={article.id} {...article} />
+            ))}
+          </Route>
+        </Switch>
+      </TransitionGroup>
     );
 
   return <div className={styles.Articles}>{content}</div>;
