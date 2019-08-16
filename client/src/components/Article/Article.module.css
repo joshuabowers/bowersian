@@ -1,7 +1,12 @@
 .Article {
+  --background-color: hsla(180, 80%, 95%);
   display: flex;
   flex-direction: column;
   padding: 2em;
+  margin: 0 3em;
+  background-color: var(--background-color);
+  box-shadow: 0 2em 4em black;
+  opacity: 0.9;
 }
 
 .Article > header {
@@ -15,6 +20,28 @@
   box-decoration-break: clone;
   column-fill: auto;
   overflow-x: auto;
+
+  /* Not fully functional: see: https://stackoverflow.com/questions/44793453/how-do-i-add-a-top-and-bottom-shadow-while-scrolling-but-only-when-needed */
+  background: /* Shadow covers */
+  /* Shadows */ linear-gradient(
+      to right,
+      var(--background-color) 30%,
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0),
+        var(--background-color) 70%
+      )
+      100% 0,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.2), transparent),
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.2), transparent)
+      100% 0;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
 }
 
 .Article > section p {

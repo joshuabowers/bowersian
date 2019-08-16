@@ -11,7 +11,10 @@ export const Synopsis = (props: IArticle) => {
     <article className={styles.Synopsis}>
       <Link to={uri}>
         <header>
-          <h2>{props.title}</h2>
+          <h2>
+            {props.title}
+            <span className="material-icons">check</span>
+          </h2>
         </header>
         <blockquote>{props.summary}</blockquote>
         <ByLine {...props} />
