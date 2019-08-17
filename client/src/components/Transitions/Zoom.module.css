@@ -7,7 +7,7 @@
 
 .enter {
   opacity: 0;
-  transform: scale(50%);
+  transform: scale(0%);
 }
 
 .enterActive {
@@ -22,6 +22,6 @@
 
 .exitActive {
   opacity: 0;
-  transform: scale(50%);
+  transform: scale(0%);
   transition: 500ms var(--ease-in-back);
 }

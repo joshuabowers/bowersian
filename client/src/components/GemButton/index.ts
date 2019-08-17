@@ -1,1 +1,1 @@
-export { default } from './GemButton.container';
+export { GemButton as default } from './GemButton.component';

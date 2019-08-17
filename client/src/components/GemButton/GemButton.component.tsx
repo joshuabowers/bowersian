@@ -1,66 +1,44 @@
 import * as React from 'react';
 import styles from './GemButton.module.css';
+import { useMutation } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
-interface GemButtonDefaultProps {
-  title?: string;
-  onClick?: React.MouseEventHandler;
-}
-
-interface GemButtonSingleStateProps extends GemButtonDefaultProps {
-  icon: string;
-}
-
-interface GemButtonToggleableProps extends GemButtonDefaultProps {
+interface IGemButton {
   from: string;
   to: string;
   toggled?: boolean;
+  fromQuery?: any;
+  toQuery?: any;
+  onClick?: React.MouseEventHandler;
 }
 
-export interface IGemButton {
-  (props: GemButtonSingleStateProps): JSX.Element;
-  (props: GemButtonToggleableProps): JSX.Element;
-}
-
-export type TGemButtonProps =
-  | GemButtonSingleStateProps
-  | GemButtonToggleableProps;
-
-const isToggleable = (props: any): props is GemButtonToggleableProps =>
-  !!(props as GemButtonToggleableProps).from;
-
-// export function GemButton(props: GemButtonSingleStateProps): JSX.Element;
-// export function GemButton(props: GemButtonToggleableProps): JSX.Element;
-// export function GemButton(
-//   props: GemButtonSingleStateProps | GemButtonToggleableProps
-// ) {
-
-export const GemButton: IGemButton = (
-  props: GemButtonSingleStateProps | GemButtonToggleableProps
-) => {
-  let title = props.title;
-  let icon;
+export const GemButton = (props: IGemButton) => {
   let handleClick = props.onClick;
   const classes = ['material-icons', styles.GemButton];
-  if (isToggleable(props)) {
-    const toggled = props.toggled || false;
-    const current = toggled ? props.to : props.from;
-    title = title || current;
-    icon = (
+
+  const toggled = props.toggled || false;
+  const current = toggled ? props.to : props.from;
+  const query = toggled ? props.toQuery : props.fromQuery;
+
+  const [performMutation, { data }] = useMutation(query);
+
+  console.info('mutation result:', data);
+
+  if (toggled) {
+    classes.push(styles.toggled);
+  }
+  if (!handleClick && query) {
+    handleClick = () => {
+      performMutation();
+    };
+  }
+
+  return (
+    <button className={classes.join(' ')} title={current} onClick={handleClick}>
       <div className={styles.icons}>
         <span className={styles.firstIcon}>{props.from}</span>
         <span className={styles.secondIcon}>{props.to}</span>
       </div>
-    );
-    if (toggled) {
-      classes.push(styles.toggled);
-    }
-  } else {
-    title = title || props.icon;
-    icon = props.icon;
-  }
-  return (
-    <button className={classes.join(' ')} title={title} onClick={handleClick}>
-      {icon}
     </button>
   );
 };

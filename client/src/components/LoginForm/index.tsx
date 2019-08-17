@@ -1,20 +1,64 @@
-import React, { useState, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
-import { logIn } from 'store/system/actions';
+import React, { useState, FormEvent, useCallback } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { gql, ExecutionResult } from 'apollo-boost';
+import { IUser } from 'graphql/types/user';
 import styles from './Login.module.css';
 
 export interface ILoginProps {}
 
+const performLogin = gql`
+  mutation LogIn($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+      email
+      displayAs
+      isLoggedIn @client
+    }
+  }
+`;
+
+const closeLoginForm = gql`
+  mutation {
+    toggleLoginForm @client
+  }
+`;
+
+interface LoginPayload {
+  login: IUser;
+}
+
 export const LoginForm = (props: ILoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(logIn.request({ email, password }));
-  };
+  const [logIn, { error, data }] = useMutation<LoginPayload>(performLogin);
+  const [closeForm] = useMutation(closeLoginForm, { ignoreResults: true });
+
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      try {
+        e.preventDefault();
+        const { data } = (await logIn({
+          variables: { email, password }
+        })) as ExecutionResult<LoginPayload>;
+        if (data && data.login && data.login.isLoggedIn) {
+          closeForm();
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [logIn, email, password]
+  );
+
   return (
     <form className={styles.LoginForm} onSubmit={handleSubmit}>
+      {error && (
+        <div className={styles.error}>
+          {error.graphQLErrors.map(({ message }, i) => (
+            <span key={i}>{message}</span>
+          ))}
+        </div>
+      )}
       <label htmlFor="login-email">Email</label>
       <input
         type="email"

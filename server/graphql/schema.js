@@ -56,7 +56,7 @@ type Query {
   """
   Returns the currently logged in user.
   """
-  me: User @isAuthenticated
+  me: User
 
   articles(filter: IArticleFilter): [Article!]!
   article(search: ISlug!): Article
