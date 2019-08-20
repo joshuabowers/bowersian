@@ -1,9 +1,14 @@
 .LoginForm {
-  grid-area: main;
+  --width: 25em;
+  --height: 10em;
+
+  position: sticky;
+  left: calc((100% - var(--width)) / 2);
+  top: calc((100% - var(--height)) / 2);
+
   width: 25em;
+  height: 10em;
   z-index: 10;
-  align-self: center;
-  justify-self: center;
   background: rgba(0, 0, 0, 0.45);
   color: white;
   padding: 2em;

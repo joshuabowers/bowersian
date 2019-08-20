@@ -37,17 +37,18 @@
   padding: 1em;
 
   text-decoration: none;
-}
-
-.Synopsis > a:visited {
   color: black;
 }
 
-.Synopsis > a > h2 > span {
-  visibility: hidden;
+.Synopsis > a:visited {
+  color: inherit;
 }
 
-.Synopsis > a:visited h2 > span {
-  visibility: visible;
+.Synopsis .check {
+  color: var(--background-color);
+}
+
+.Synopsis a:visited .check {
+  opacity: 1;
   color: green;
 }

@@ -7,13 +7,14 @@ import styles from './Synopsis.module.css';
 
 export const Synopsis = (props: IArticle) => {
   const uri = props.uri || `/edit/${props.id}`;
+  const check = ['material-icons', styles.check].join(' ');
   return (
     <article className={styles.Synopsis}>
       <Link to={uri}>
         <header>
           <h2>
             {props.title}
-            <span className="material-icons">check</span>
+            <span className={check}>check</span>
           </h2>
         </header>
         <blockquote>{props.summary}</blockquote>

@@ -38,7 +38,6 @@ export const App = (props: IAppProps) => {
   }
   return (
     <TransitionGroup className={styles.App}>
-      <Header title="Bowersian" key="app-header" />
       {data.isLoginVisible && (
         <CSSTransition
           key="login-form"
@@ -48,6 +47,7 @@ export const App = (props: IAppProps) => {
           <LoginForm />
         </CSSTransition>
       )}
+      <Header title="Bowersian" key="app-header" />
       {/* <Breadcrumb key="breadcrumbs">
         <Link to="/articles/2019">2019</Link>
         <Link to="/articles/2019/07">July</Link>
