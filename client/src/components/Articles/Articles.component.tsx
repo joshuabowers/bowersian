@@ -9,7 +9,9 @@ import { Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Article from 'components/Article';
 
-import Zoom from 'components/Transitions/Zoom.module.css';
+import fade from 'components/Transitions/Fade.module.css';
+
+// import Zoom from 'components/Transitions/Zoom.module.css';
 
 export const searchArticles = gql`
   query SearchArticles($filter: IArticleFilter) {
@@ -70,9 +72,16 @@ export const Articles = (props: ArticlesProps & RouteComponentProps) => {
         <CSSTransition
           key={props.location.key}
           timeout={500}
-          classNames={{ ...Zoom }}
+          classNames={{ ...fade }}
         >
-          <Switch location={props.location}>
+          <>
+            {data.articles.map(article => (
+              <Article key={article.id} {...article} />
+              // <Synopsis key={article.id} {...article} />
+            ))}
+          </>
+
+          {/* <Switch location={props.location}>
             <Route
               exact
               path="/articles/:year/:month/:slug"
@@ -92,7 +101,7 @@ export const Articles = (props: ArticlesProps & RouteComponentProps) => {
                 ))
               }
             />
-          </Switch>
+          </Switch> */}
         </CSSTransition>
       </TransitionGroup>
     );

@@ -1,6 +1,6 @@
 // NOTE: This is for the Articles grid.
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import { ByLine } from 'components/ByLine';
 import { IArticle } from 'graphql/types/article';
 import styles from './Synopsis.module.css';
