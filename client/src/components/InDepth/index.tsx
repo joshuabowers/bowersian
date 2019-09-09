@@ -4,6 +4,7 @@ import { ByLine } from 'components/ByLine';
 import styles from './InDepth.module.css';
 import { IArticle } from 'graphql/types/article';
 import { useQuery } from '@apollo/react-hooks';
+import GoBack from 'components/GoBack';
 import gql from 'graphql-tag';
 
 const findArticle = gql`
@@ -23,13 +24,12 @@ interface ArticlePayload {
 }
 
 export const InDepth = (props: IArticle) => {
-  console.log(props);
+  console.info({ props });
   const publishedAt = props.publishedAt && new Date(props.publishedAt);
   const date = publishedAt && {
     year: publishedAt.getFullYear(),
     month: publishedAt.getMonth() + 1
   };
-  console.log(date);
   const { loading, error, data } = useQuery<ArticlePayload>(findArticle, {
     variables: {
       slug: {
@@ -38,26 +38,30 @@ export const InDepth = (props: IArticle) => {
       }
     }
   });
+  let content: JSX.Element | undefined;
   if (loading) {
-    return <p>Loading</p>;
+    content = <p>Loading</p>;
   }
   if (error) {
     console.error(error);
-    return <p>Error</p>;
+    content = <p>Error</p>;
   }
   if (!data || !data.article) {
-    return <p>No content</p>;
+    content = <p>No content</p>;
+  } else {
+    content = (
+      <>
+        <header>
+          <GoBack />
+          <h2>{data.article.title}</h2>
+        </header>
+        <section>
+          <ReactMarkdown source={data.article.body} />
+        </section>
+        <ByLine {...data.article} />
+      </>
+    );
   }
 
-  return (
-    <article className={styles.InDepth}>
-      <header>
-        <h2>{data.article.title}</h2>
-      </header>
-      <section>
-        <ReactMarkdown source={data.article.body} />
-      </section>
-      <ByLine {...data.article} />
-    </article>
-  );
+  return <article className={styles.InDepth}>{content}</article>;
 };

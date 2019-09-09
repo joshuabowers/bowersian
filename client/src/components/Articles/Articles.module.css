@@ -1,3 +1,5 @@
+@import '../Transitions/Easings.module.css';
+
 .Articles {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
@@ -7,20 +9,22 @@
   justify-items: center;
   align-items: center;
 
+  /* transition: all 500ms var(--ease-in-out-back); */
+
   padding: 2em;
 }
 
-.Articles > *:nth-child(5n) {
-  grid-row-end: span 2;
-  grid-column-end: span 2;
-}
-
-.Articles > *:nth-child(3n) {
+.Articles > *:nth-child(3n + 1) {
   grid-row-end: auto;
   grid-column-end: span 2;
 }
 
-.Articles > *:nth-child(7n) {
+.Articles > *:nth-child(5n + 1) {
   grid-row-end: span 2;
   grid-column-end: auto;
+}
+
+.Articles > *:nth-child(7n + 1) {
+  grid-row-end: span 2;
+  grid-column-end: span 2;
 }

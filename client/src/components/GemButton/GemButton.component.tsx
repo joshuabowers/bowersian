@@ -22,7 +22,7 @@ export const GemButton = (props: IGemButton) => {
 
   const [performMutation, { data }] = useMutation(query);
 
-  console.info('mutation result:', data);
+  // console.info('mutation result:', data);
 
   if (toggled) {
     classes.push(styles.toggled);

@@ -1,6 +1,9 @@
 .Footer {
+  position: sticky;
+  bottom: 0;
+  height: 3rem;
+  z-index: 100;
   background-color: black;
-  /* mix-blend-mode: screen; */
   opacity: 0.45;
   color: white;
   padding: 0.5em 3rem;

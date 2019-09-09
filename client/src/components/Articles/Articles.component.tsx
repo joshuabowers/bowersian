@@ -1,17 +1,11 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { Synopsis } from 'components/Synopsis';
 import styles from './Articles.module.css';
 import { IArticles } from 'graphql/types/article';
 
-import { Switch, Route, RouteComponentProps } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Article from 'components/Article';
-
-import fade from 'components/Transitions/Fade.module.css';
-
-// import Zoom from 'components/Transitions/Zoom.module.css';
+import { RouteComponentProps } from 'react-router-dom';
+import { Synopsis } from 'components/Synopsis';
 
 export const searchArticles = gql`
   query SearchArticles($filter: IArticleFilter) {
@@ -46,65 +40,27 @@ export const Articles = (props: ArticlesProps & RouteComponentProps) => {
     }
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) {
+  let content: JSX.Element | undefined;
+
+  if (loading) {
+    content = <p>Loading...</p>;
+  } else if (error) {
     console.error(error);
-    return <p>Error :(</p>;
+    content = <p>Error :(</p>;
   }
 
-  // TODO: Rewrite this / Article in the following way:
-  // 1. Move TransitionGroup into Article.
-  // 2. Articles always renders its list, regardless; no conditions.
-  // 3. Create a new component for doing full article rendering (e.g.,
-  //    what Article is doing now)
-  // 4. Article then becomes a three state wrapper around:
-  // 4a. InDepth: rendered when the Article exactly matches the current
-  //     route
-  // 4b. Synopsis: rendered when there is no :slug route param
-  // 4c. Nothing: rendered when there is a :slug which doesn't match
-  //     this Article.
-
-  const content =
-    !data || data.articles === undefined ? (
-      <>No results</>
-    ) : (
-      <TransitionGroup component={null}>
-        <CSSTransition
-          key={props.location.key}
-          timeout={500}
-          classNames={{ ...fade }}
-        >
-          <>
-            {data.articles.map(article => (
-              <Article key={article.id} {...article} />
-              // <Synopsis key={article.id} {...article} />
-            ))}
-          </>
-
-          {/* <Switch location={props.location}>
-            <Route
-              exact
-              path="/articles/:year/:month/:slug"
-              render={props => (
-                <Article
-                  publishedAt={
-                    new Date(props.match.params.year, props.match.params.month)
-                  }
-                  slug={props.match.params.slug}
-                />
-              )}
-            />
-            <Route
-              render={() =>
-                data.articles.map(article => (
-                  <Synopsis key={article.id} {...article} />
-                ))
-              }
-            />
-          </Switch> */}
-        </CSSTransition>
-      </TransitionGroup>
-    );
+  if (!content) {
+    content =
+      !data || data.articles === undefined ? (
+        <p>No results</p>
+      ) : (
+        <>
+          {data.articles.map(article => (
+            <Synopsis key={article.id} {...article} />
+          ))}
+        </>
+      );
+  }
 
   return <main className={styles.Articles}>{content}</main>;
 };

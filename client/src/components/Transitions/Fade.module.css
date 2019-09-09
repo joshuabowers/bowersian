@@ -1,8 +1,13 @@
 @import './Easings.module.css';
 
-.enterActive,
+.enter,
+.enterActive {
+  z-index: 10;
+}
+
+.exit,
 .exitActive {
-  transition-property: opacity;
+  z-index: 5;
 }
 
 .enter {
@@ -11,7 +16,7 @@
 
 .enterActive {
   opacity: 1;
-  transition: 500ms var(--ease-out-back);
+  transition: all var(--ease-in-out-back) 500ms;
 }
 
 .exit {
@@ -20,5 +25,5 @@
 
 .exitActive {
   opacity: 0;
-  transition: 500ms var(--ease-in-back);
+  transition: all var(--ease-in-out-back) 500ms;
 }
