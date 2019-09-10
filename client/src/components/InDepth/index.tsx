@@ -24,7 +24,6 @@ interface ArticlePayload {
 }
 
 export const InDepth = (props: IArticle) => {
-  console.info({ props });
   const publishedAt = props.publishedAt && new Date(props.publishedAt);
   const date = publishedAt && {
     year: publishedAt.getFullYear(),

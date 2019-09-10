@@ -30,7 +30,7 @@ interface LoginPayload {
 export const LoginForm = (props: ILoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [logIn, { error, data }] = useMutation<LoginPayload>(performLogin);
+  const [logIn, { error }] = useMutation<LoginPayload>(performLogin);
   const [closeForm] = useMutation(closeLoginForm, { ignoreResults: true });
 
   const handleSubmit = useCallback(
@@ -47,7 +47,7 @@ export const LoginForm = (props: ILoginProps) => {
         console.error(err);
       }
     },
-    [logIn, email, password]
+    [logIn, email, password, closeForm]
   );
 
   return (

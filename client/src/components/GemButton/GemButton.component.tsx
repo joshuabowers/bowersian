@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styles from './GemButton.module.css';
 import { useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 
 interface IGemButton {
   from: string;
@@ -20,9 +19,7 @@ export const GemButton = (props: IGemButton) => {
   const current = toggled ? props.to : props.from;
   const query = toggled ? props.toQuery : props.fromQuery;
 
-  const [performMutation, { data }] = useMutation(query);
-
-  // console.info('mutation result:', data);
+  const [performMutation] = useMutation(query);
 
   if (toggled) {
     classes.push(styles.toggled);
