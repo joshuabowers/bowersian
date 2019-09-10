@@ -3,22 +3,57 @@
   --height: 10em;
 
   position: sticky;
-  left: calc((100% - var(--width)) / 2);
-  top: calc((100% - var(--height)) / 2);
+  left: calc((100vw - var(--width)) / 2);
+  top: calc((100vh - var(--height)) / 2);
 
-  width: 25em;
-  height: 10em;
+  grid-area: main;
+
+  width: var(--width);
+  height: var(--height);
   z-index: 10;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 2em;
   box-shadow: 0 0 1em black;
   display: grid;
+
+  grid:
+    'notification notification' auto
+    'label field' 1fr
+    'label field' 1fr
+    '. actions' 1fr / auto 1fr;
+  grid-gap: 0.25em;
+  align-items: center;
+
+  border-radius: 0.5em;
+}
+
+.LoginForm label {
+  text-align: right;
 }
 
 .LoginForm input {
   border: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.35);
   color: white;
   font-size: larger;
+}
+
+.LoginForm [type='submit'] {
+  grid-column-start: 2;
+  cursor: pointer;
+
+  grid-area: actions;
+}
+
+.LoginForm ~ main,
+.LoginForm ~ article {
+  pointer-events: none;
+  user-select: none;
+}
+
+.LoginForm .error {
+  grid-area: notification;
+  color: red;
+  text-align: center;
 }
