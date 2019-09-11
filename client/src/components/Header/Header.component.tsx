@@ -1,11 +1,11 @@
 // import React, { useCallback } from 'react';
 import React from 'react';
 // import { User } from 'store/system/types';
-import GemButton from 'components/GemButton';
+import { GemButton } from 'components/GemButton';
 import styles from './Header.module.css';
 import { gql } from 'apollo-boost';
 import { IUser } from 'graphql/types/user';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 
 export interface HeaderProps {
   /** The text to display within the header */
@@ -44,6 +44,7 @@ interface MePayload {
 // management.
 export const Header = (props: HeaderProps) => {
   const { loading, error, data } = useQuery<MePayload>(getCurrentUser);
+  const client = useApolloClient();
   if (loading || !data) {
     return <p>Loading...</p>;
   } else if (error) {
@@ -74,6 +75,9 @@ export const Header = (props: HeaderProps) => {
             toggled={data.me && data.me.isLoggedIn}
             fromQuery={toggleLoginForm}
             toQuery={performLogout}
+            afterTo={(_cache, _result) => {
+              client.resetStore();
+            }}
             // onClick={handleClick}
           />
         </li>

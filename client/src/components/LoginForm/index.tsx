@@ -17,12 +17,6 @@ const performLogin = gql`
   }
 `;
 
-const closeLoginForm = gql`
-  mutation {
-    toggleLoginForm @client
-  }
-`;
-
 interface LoginPayload {
   login: IUser;
 }
@@ -30,8 +24,7 @@ interface LoginPayload {
 export const LoginForm = (props: ILoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [logIn, { error }] = useMutation<LoginPayload>(performLogin);
-  const [closeForm] = useMutation(closeLoginForm, { ignoreResults: true });
+  const [logIn, { client, error }] = useMutation<LoginPayload>(performLogin);
 
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
@@ -40,14 +33,14 @@ export const LoginForm = (props: ILoginProps) => {
         const { data } = (await logIn({
           variables: { email, password }
         })) as ExecutionResult<LoginPayload>;
-        if (data && data.login && data.login.isLoggedIn) {
-          closeForm();
+        if (data && data.login && data.login.isLoggedIn && client) {
+          await client.resetStore();
         }
       } catch (err) {
         console.error(err);
       }
     },
-    [logIn, email, password, closeForm]
+    [logIn, client, email, password]
   );
 
   return (

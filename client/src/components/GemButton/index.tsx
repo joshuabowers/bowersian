@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from './GemButton.module.css';
 import { useMutation } from '@apollo/react-hooks';
+import { MutationUpdaterFn } from 'apollo-boost';
 
 interface IGemButton {
   from: string;
@@ -8,6 +9,8 @@ interface IGemButton {
   toggled?: boolean;
   fromQuery?: any;
   toQuery?: any;
+  afterFrom?: MutationUpdaterFn<any>;
+  afterTo?: MutationUpdaterFn<any>;
   onClick?: React.MouseEventHandler;
 }
 
@@ -18,8 +21,9 @@ export const GemButton = (props: IGemButton) => {
   const toggled = props.toggled || false;
   const current = toggled ? props.to : props.from;
   const query = toggled ? props.toQuery : props.fromQuery;
+  const after = toggled ? props.afterTo : props.afterFrom;
 
-  const [performMutation] = useMutation(query);
+  const [performMutation] = useMutation(query, { update: after });
 
   if (toggled) {
     classes.push(styles.toggled);
